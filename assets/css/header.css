@@ -1,0 +1,298 @@
+/**
+ * Trip Kailash Theme - Header Styles
+ * Transparent header that appears on scroll
+ */
+
+/* ============================================
+   HEADER BASE STYLES
+   ============================================ */
+
+.tk-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background-color: transparent;
+  transition: background-color var(--tk-transition-normal),
+    box-shadow var(--tk-transition-normal),
+    height var(--tk-transition-normal);
+  height: var(--tk-header-height);
+}
+
+.tk-header__container {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  padding: 0 var(--tk-space-sm);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================================
+   SCROLLED STATE
+   ============================================ */
+
+.tk-header.scrolled {
+  background-color: var(--tk-shiva);
+  box-shadow: var(--tk-shadow-header);
+  height: var(--tk-header-height-scrolled);
+}
+
+/* Always show solid background on pilgrimage packages pages */
+.post-type-archive-pilgrimage_package .tk-header,
+.single-pilgrimage_package .tk-header {
+  background-color: var(--tk-shiva);
+  box-shadow: var(--tk-shadow-header);
+}
+
+/* Push content below navbar on pilgrimage packages pages */
+/* Override Elementor's negative margin that pulls content behind header */
+.post-type-archive-pilgrimage_package.elementor-page .elementor,
+.single-pilgrimage_package.elementor-page .elementor {
+  margin-top: 0 !important;
+  padding-top: var(--tk-header-height) !important;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.tk-header__logo a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--tk-bg-main);
+  font-family: var(--tk-font-heading);
+  font-size: 20px;
+  transition: opacity var(--tk-transition-fast);
+}
+
+/* Constrain WordPress custom logo image size in header and footer */
+.tk-header__logo img,
+.tk-footer__brand img {
+  display: block;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+}
+
+.tk-header__logo a:hover {
+  opacity: 0.8;
+}
+
+.tk-logo-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.tk-logo-text {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.tk-header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.tk-nav-menu {
+  display: flex;
+  gap: var(--tk-space-sm);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tk-nav-menu li a {
+  color: var(--tk-bg-main);
+  font-size: var(--tk-font-size-small);
+  font-weight: 400;
+  transition: color var(--tk-transition-fast);
+  position: relative;
+  padding: 8px 0;
+}
+
+.tk-nav-menu li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--tk-gold);
+  transition: width var(--tk-transition-fast);
+}
+
+.tk-nav-menu li a:hover::after,
+.tk-nav-menu li a:focus::after {
+  width: 100%;
+}
+
+.tk-nav-menu li a:hover,
+.tk-nav-menu li a:focus {
+  color: var(--tk-gold);
+}
+
+/* ============================================
+   CTA BUTTON
+   ============================================ */
+
+.tk-header__cta {
+  display: flex;
+  align-items: center;
+}
+
+.tk-header__cta .tk-btn {
+  display: inline-block;
+  padding: 7px 18px;
+  border-radius: var(--tk-border-radius-sm);
+  font-size: var(--tk-font-size-small);
+  font-weight: 500;
+  text-align: center;
+  transition: all var(--tk-transition-fast);
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.tk-header__cta .tk-btn-gold {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+}
+
+.tk-header__cta .tk-btn-gold:hover,
+.tk-header__cta .tk-btn-gold:focus {
+  background-color: #9a6f0a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+}
+
+/* ============================================
+   MOBILE MENU TOGGLE
+   ============================================ */
+
+.tk-mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.tk-mobile-menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--tk-bg-main);
+  transition: all var(--tk-transition-fast);
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .tk-nav-menu {
+    gap: var(--tk-space-xs);
+  }
+
+  .tk-nav-menu li a {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-header__nav {
+    position: fixed;
+    top: var(--tk-header-height);
+    left: 0;
+    right: 0;
+    background-color: var(--tk-shiva);
+    padding: var(--tk-space-sm);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--tk-transition-normal);
+    box-shadow: var(--tk-shadow-header);
+    z-index: 4;
+  }
+
+  .tk-header__nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .tk-nav-menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .tk-nav-menu li {
+    border-bottom: 1px solid rgba(245, 242, 237, 0.1);
+  }
+
+  .tk-nav-menu li:last-child {
+    border-bottom: none;
+  }
+
+  .tk-nav-menu li a {
+    display: block;
+    padding: 16px 0;
+    font-size: var(--tk-font-size-body);
+  }
+
+  .tk-header__cta {
+    display: none;
+  }
+
+  .tk-mobile-menu-toggle {
+    display: flex;
+  }
+
+  .tk-mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .tk-mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .tk-mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  .tk-header__container {
+    padding: 0 var(--tk-space-xs);
+  }
+
+  .tk-header.scrolled .tk-header__nav {
+    top: var(--tk-header-height-scrolled);
+  }
+}
+
+/* ============================================
+   PRICING BAR INTEGRATION
+   ============================================ */
+
+/* Hide navbar when pricing bar becomes sticky */
+.tk-header.tk-header--hidden-by-pricing {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* ============================================
+   HERO VIDEO INTEGRATION
+   ============================================ */
+
+/* Navbar is inside hero-video section but stays fixed on scroll
+   Header is already position: fixed, so it will stay at top when scrolling */

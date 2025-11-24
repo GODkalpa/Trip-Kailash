@@ -1,0 +1,163 @@
+/**
+ * Trip Kailash Theme - Elementor Overrides
+ * Handle spacing for pages with transparent navbar vs solid navbar
+ */
+
+/* ============================================
+   DEFAULT - All pages have NO top spacing (navbar overlays)
+   ============================================ */
+
+/* Remove ALL top spacing from Elementor content by default */
+.elementor {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Target all possible Elementor section variations */
+.elementor-section.elementor-top-section:first-child,
+.elementor-section:first-child,
+.elementor-container:first-child,
+.elementor > .elementor-section-wrap > .elementor-section:first-child,
+.elementor > .elementor-section:first-child {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Force remove padding from first section's container */
+.elementor-section:first-child > .elementor-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+#page {
+  padding-top: 0 !important;
+}
+
+/* Remove spacing from hero widgets */
+.elementor-widget-trip-kailash-hero-video,
+.elementor-widget-tk-deity-hero {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.elementor-widget-trip-kailash-hero-video .elementor-widget-container,
+.elementor-widget-tk-deity-hero .elementor-widget-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove spacing from sections containing hero widgets */
+.elementor-section:has(.tk-hero-video),
+.elementor-section:has(.tk-deity-hero) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Override Elementor's inline padding styles for hero sections */
+.elementor-section:has(.tk-hero-video) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.elementor-section:has(.tk-deity-hero) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.elementor-section:has(.tk-hero-video) .elementor-container,
+.elementor-section:has(.tk-deity-hero) .elementor-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Remove column gaps for hero sections */
+.elementor-section:has(.tk-hero-video) .elementor-column-gap-default > .elementor-column > .elementor-element-populated,
+.elementor-section:has(.tk-deity-hero) .elementor-column-gap-default > .elementor-column > .elementor-element-populated {
+  padding: 0 !important;
+}
+
+/* Full width for hero sections */
+.elementor-section.elementor-section-boxed:has(.tk-hero-video) > .elementor-container,
+.elementor-section.elementor-section-boxed:has(.tk-deity-hero) > .elementor-container {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ============================================
+   EXCEPTION - Package archive page has solid navbar with spacing
+   ============================================ */
+
+/* Package archive pages: Add spacing below fixed header */
+.post-type-archive-pilgrimage_package .elementor,
+.post-type-archive-pilgrimage_package #page {
+  padding-top: var(--tk-header-height) !important;
+}
+
+/* ============================================
+   HEADER STYLING CONTROL
+   ============================================ */
+
+/* Default: Navbar is transparent and overlays content */
+.tk-header {
+  background-color: transparent;
+}
+
+/* Package archive pages: Solid navbar */
+.post-type-archive-pilgrimage_package .tk-header {
+  background-color: var(--tk-shiva) !important;
+  box-shadow: var(--tk-shadow-header) !important;
+}
+
+/* ============================================
+   NUCLEAR OPTION - Override ALL Elementor spacing for hero sections
+   ============================================ */
+
+/* Target the exact Elementor section structure */
+.elementor-section.elementor-top-section:has(.elementor-widget-trip-kailash-hero-video),
+.elementor-section.elementor-top-section:has(.elementor-widget-tk-deity-hero) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Override Elementor column padding */
+.elementor-section:has(.tk-hero-video) .elementor-column,
+.elementor-section:has(.tk-deity-hero) .elementor-column {
+  padding: 0 !important;
+}
+
+/* Override Elementor column wrap padding */
+.elementor-section:has(.tk-hero-video) .elementor-column-wrap,
+.elementor-section:has(.tk-deity-hero) .elementor-column-wrap {
+  padding: 0 !important;
+}
+
+/* Override Elementor widget wrap padding */
+.elementor-section:has(.tk-hero-video) .elementor-widget-wrap,
+.elementor-section:has(.tk-deity-hero) .elementor-widget-wrap {
+  padding: 0 !important;
+}
+
+/* ============================================
+   ULTIMATE OVERRIDE - Force zero spacing on first section if it contains hero
+   ============================================ */
+
+/* Target first Elementor section specifically */
+body:not(.post-type-archive-pilgrimage_package) .elementor-section:first-of-type {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body:not(.post-type-archive-pilgrimage_package) .elementor-section:first-of-type > .elementor-container {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Override any inline styles on the section */
+body:not(.post-type-archive-pilgrimage_package) .elementor > .elementor-section-wrap > .elementor-section:first-child[data-settings],
+body:not(.post-type-archive-pilgrimage_package) .elementor > .elementor-section:first-child[data-settings] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}

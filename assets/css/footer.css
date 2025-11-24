@@ -1,0 +1,206 @@
+/**
+ * Trip Kailash Theme - Footer Styles
+ */
+
+/* ============================================
+   FOOTER BASE STYLES
+   ============================================ */
+
+.tk-footer {
+  background-color: var(--tk-shiva);
+  color: var(--tk-bg-main);
+  padding: var(--tk-space-lg) 0 var(--tk-space-sm);
+}
+
+.tk-footer__container {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  padding: 0 var(--tk-space-sm);
+}
+
+/* ============================================
+   FOOTER MAIN SECTION
+   ============================================ */
+
+.tk-footer__main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--tk-space-lg);
+  padding-bottom: var(--tk-space-md);
+  border-bottom: 1px solid rgba(245, 242, 237, 0.15);
+  margin-bottom: var(--tk-space-sm);
+}
+
+/* ============================================
+   BRAND SECTION
+   ============================================ */
+
+.tk-footer__brand {
+  max-width: 500px;
+}
+
+.tk-footer__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h3);
+  margin-bottom: var(--tk-space-xs);
+  color: var(--tk-bg-main);
+}
+
+.tk-footer__tagline {
+  font-size: var(--tk-font-size-small);
+  line-height: 1.6;
+  color: rgba(245, 242, 237, 0.8);
+  margin: 0;
+}
+
+/* ============================================
+   FOOTER LINKS
+   ============================================ */
+
+.tk-footer__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--tk-space-md);
+}
+
+.tk-footer__column h4 {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--tk-space-xs);
+  color: var(--tk-bg-main);
+}
+
+.tk-footer__column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tk-footer__column ul li {
+  margin-bottom: 12px;
+}
+
+.tk-footer__column ul li:last-child {
+  margin-bottom: 0;
+}
+
+.tk-footer__column a {
+  color: rgba(245, 242, 237, 0.8);
+  font-size: var(--tk-font-size-small);
+  transition: color var(--tk-transition-fast);
+}
+
+.tk-footer__column a:hover,
+.tk-footer__column a:focus {
+  color: var(--tk-gold);
+}
+
+/* ============================================
+   SOCIAL ICONS
+   ============================================ */
+
+.tk-footer__social {
+  display: flex;
+  gap: 16px;
+  margin-top: var(--tk-space-xs);
+}
+
+.tk-footer__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(245, 242, 237, 0.1);
+  color: var(--tk-bg-main);
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-footer__social a:hover,
+.tk-footer__social a:focus {
+  background-color: var(--tk-gold);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   FOOTER BOTTOM
+   ============================================ */
+
+.tk-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--tk-space-sm);
+}
+
+.tk-footer__bottom p {
+  font-size: 14px;
+  color: rgba(245, 242, 237, 0.6);
+  margin: 0;
+}
+
+.tk-footer__legal {
+  display: flex;
+  gap: var(--tk-space-sm);
+}
+
+.tk-footer__legal a {
+  font-size: 14px;
+  color: rgba(245, 242, 237, 0.6);
+  transition: color var(--tk-transition-fast);
+}
+
+.tk-footer__legal a:hover,
+.tk-footer__legal a:focus {
+  color: var(--tk-gold);
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .tk-footer__main {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-md);
+  }
+  
+  .tk-footer__links {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-footer {
+    padding: var(--tk-space-md) 0 var(--tk-space-xs);
+  }
+  
+  .tk-footer__container {
+    padding: 0 var(--tk-space-xs);
+  }
+  
+  .tk-footer__main {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-sm);
+  }
+  
+  .tk-footer__links {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-sm);
+  }
+  
+  .tk-footer__bottom {
+    flex-direction: column;
+    gap: var(--tk-space-xs);
+    text-align: center;
+  }
+  
+  .tk-footer__legal {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,3283 @@
+/**
+ * Trip Kailash Theme - Component Styles
+ * Reusable component styles for buttons, cards, forms, and icons
+ */
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.tk-btn {
+  display: inline-block;
+  padding: 12px 34px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--tk-border-radius-sm);
+  cursor: pointer;
+  transition: all var(--tk-transition-normal);
+  background-color: transparent;
+  color: var(--tk-text-main);
+}
+
+.tk-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--tk-shadow-card);
+}
+
+.tk-btn:active {
+  transform: translateY(0);
+}
+
+.tk-btn:focus-visible {
+  outline: 2px solid var(--tk-gold);
+  outline-offset: 2px;
+}
+
+/* Button Variants */
+.tk-btn-gold {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+  border-color: var(--tk-gold);
+}
+
+.tk-btn-gold:hover {
+  background-color: #9a7109;
+  border-color: #9a7109;
+}
+
+.tk-btn-shiva {
+  background-color: var(--tk-shiva);
+  color: var(--tk-bg-main);
+  border-color: var(--tk-shiva);
+}
+
+.tk-btn-shiva:hover {
+  background-color: #252747;
+  border-color: #252747;
+}
+
+.tk-btn-vishnu {
+  background-color: var(--tk-vishnu);
+  color: var(--tk-bg-main);
+  border-color: var(--tk-vishnu);
+}
+
+.tk-btn-vishnu:hover {
+  background-color: #d4711e;
+  border-color: #d4711e;
+}
+
+.tk-btn-devi {
+  background-color: var(--tk-devi);
+  color: var(--tk-bg-main);
+  border-color: var(--tk-devi);
+}
+
+.tk-btn-devi:hover {
+  background-color: #a01a42;
+  border-color: #a01a42;
+}
+
+.tk-btn-outline {
+  background-color: transparent;
+  border-color: var(--tk-text-main);
+  color: var(--tk-text-main);
+}
+
+.tk-btn-outline:hover {
+  background-color: var(--tk-text-main);
+  color: var(--tk-bg-main);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+
+.tk-card {
+  background-color: var(--tk-bg-main);
+  border-radius: var(--tk-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tk-shadow-card);
+  transition: all var(--tk-transition-normal);
+  position: relative;
+}
+
+/* Card Hover Effects - 3D lift, subtle tilt, shadow transitions */
+.tk-card:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(1deg);
+  box-shadow: var(--tk-shadow-card-hover);
+  transform-style: preserve-3d;
+}
+
+.tk-card:active {
+  transform: translateY(-4px) rotateX(1deg) rotateY(0.5deg);
+}
+
+/* Card Image */
+.tk-card__image {
+  position: relative;
+  overflow: hidden;
+  background-color: #e0ddd8;
+}
+
+.tk-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+.tk-card:hover .tk-card__image img {
+  transform: scale(1.05) rotate(1deg);
+}
+
+/* Card Content */
+.tk-card__content {
+  padding: var(--tk-space-sm);
+}
+
+.tk-card__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h3);
+  margin-bottom: 12px;
+}
+
+.tk-card__text {
+  font-size: var(--tk-font-size-body);
+  line-height: 1.6;
+  color: var(--tk-text-main);
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+
+.tk-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-xs);
+}
+
+.tk-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tk-form-label {
+  font-size: var(--tk-font-size-small);
+  font-weight: 500;
+  color: var(--tk-text-main);
+}
+
+.tk-form-input,
+.tk-form-textarea,
+.tk-form-select {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+  background-color: var(--tk-bg-main);
+  border: 2px solid rgba(44, 43, 40, 0.2);
+  border-radius: var(--tk-border-radius-sm);
+  transition: border-color var(--tk-transition-fast);
+}
+
+.tk-form-input:focus,
+.tk-form-textarea:focus,
+.tk-form-select:focus {
+  outline: none;
+  border-color: var(--tk-gold);
+}
+
+/* Deity-specific input focus colors */
+.tk-deity--shiva .tk-form-input:focus,
+.tk-deity--shiva .tk-form-textarea:focus,
+.tk-deity--shiva .tk-form-select:focus {
+  border-color: var(--tk-shiva);
+}
+
+.tk-deity--vishnu .tk-form-input:focus,
+.tk-deity--vishnu .tk-form-textarea:focus,
+.tk-deity--vishnu .tk-form-select:focus {
+  border-color: var(--tk-vishnu);
+}
+
+.tk-deity--devi .tk-form-input:focus,
+.tk-deity--devi .tk-form-textarea:focus,
+.tk-deity--devi .tk-form-select:focus {
+  border-color: var(--tk-devi);
+}
+
+.tk-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.tk-form-input::placeholder,
+.tk-form-textarea::placeholder {
+  color: rgba(44, 43, 40, 0.5);
+}
+
+.tk-form-error {
+  color: #c41e3a;
+  font-size: var(--tk-font-size-small);
+  margin-top: 4px;
+}
+
+.tk-form-success {
+  color: #2d7a3e;
+  font-size: var(--tk-font-size-small);
+  margin-top: 4px;
+}
+
+/* ============================================
+   ICONS
+   ============================================ */
+
+.tk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-icon.active {
+  opacity: 1;
+  color: var(--tk-gold);
+}
+
+.tk-icon.inactive {
+  opacity: 0.3;
+  color: var(--tk-text-main);
+  filter: grayscale(100%);
+}
+
+.tk-icon-grid {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ============================================
+   DEITY-SPECIFIC UTILITY CLASSES
+   ============================================ */
+
+.tk-deity--shiva {
+  --deity-color: var(--tk-shiva);
+}
+
+.tk-deity--vishnu {
+  --deity-color: var(--tk-vishnu);
+}
+
+.tk-deity--devi {
+  --deity-color: var(--tk-devi);
+}
+
+/* Deity color overlays */
+.tk-deity--shiva .tk-deity-overlay {
+  background-color: rgba(26, 27, 58, 0.85);
+}
+
+.tk-deity--vishnu .tk-deity-overlay {
+  background-color: rgba(230, 126, 34, 0.85);
+}
+
+.tk-deity--devi .tk-deity-overlay {
+  background-color: rgba(139, 21, 56, 0.85);
+}
+
+/* Deity accent colors */
+.tk-deity--shiva .tk-accent {
+  color: var(--tk-shiva);
+}
+
+.tk-deity--vishnu .tk-accent {
+  color: var(--tk-vishnu);
+}
+
+.tk-deity--devi .tk-accent {
+  color: var(--tk-devi);
+}
+
+/* Deity border colors */
+.tk-deity--shiva .tk-border-accent {
+  border-color: var(--tk-shiva);
+}
+
+.tk-deity--vishnu .tk-border-accent {
+  border-color: var(--tk-vishnu);
+}
+
+.tk-deity--devi .tk-border-accent {
+  border-color: var(--tk-devi);
+}
+
+/* Deity background colors */
+.tk-deity--shiva .tk-bg-accent {
+  background-color: var(--tk-shiva);
+  color: var(--tk-bg-main);
+}
+
+.tk-deity--vishnu .tk-bg-accent {
+  background-color: var(--tk-vishnu);
+  color: var(--tk-bg-main);
+}
+
+.tk-deity--devi .tk-bg-accent {
+  background-color: var(--tk-devi);
+  color: var(--tk-bg-main);
+}
+
+/* ============================================
+   GRID LAYOUTS
+   ============================================ */
+
+.tk-grid,
+.tk-packages-grid {
+  display: grid;
+  gap: var(--tk-space-sm);
+}
+
+.tk-packages-grid {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.tk-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tk-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 1024px) {
+  .tk-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tk-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .tk-grid-2,
+  .tk-grid-3,
+  .tk-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.tk-loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(44, 43, 40, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--tk-gold);
+  animation: tk-spin 0.8s linear infinite;
+}
+
+@keyframes tk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   OVERLAY/MODAL BASE
+   ============================================ */
+
+.tk-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(44, 43, 40, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--tk-transition-normal), visibility var(--tk-transition-normal);
+}
+
+.tk-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tk-overlay__content {
+  background-color: var(--tk-bg-main);
+  border-radius: var(--tk-border-radius);
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--tk-shadow-overlay);
+  position: relative;
+}
+
+.tk-overlay__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--tk-bg-main);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--tk-text-main);
+  transition: all var(--tk-transition-fast);
+  z-index: 10;
+}
+
+.tk-overlay__close:hover {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+
+.tk-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: var(--tk-font-size-small);
+  font-weight: 500;
+  border-radius: 20px;
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+}
+
+.tk-badge-shiva {
+  background-color: var(--tk-shiva);
+}
+
+.tk-badge-vishnu {
+  background-color: var(--tk-vishnu);
+}
+
+.tk-badge-devi {
+  background-color: var(--tk-devi);
+}
+
+/* ============================================
+   DIVIDERS
+   ============================================ */
+
+.tk-divider {
+  height: 1px;
+  background-color: rgba(44, 43, 40, 0.1);
+  margin: var(--tk-space-sm) 0;
+}
+
+.tk-divider-thick {
+  height: 2px;
+  background-color: rgba(44, 43, 40, 0.2);
+}
+
+/* ============================================
+   HERO VIDEO WIDGET
+   ============================================ */
+
+.tk-hero-video {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tk-text-main);
+  margin: 0;
+  margin-top: -1px;
+  padding: 0;
+}
+
+/* Wave Bottom Curve */
+.tk-hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 4;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.tk-hero-wave svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 80px;
+}
+
+/* Video Element */
+.tk-hero-video__video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Sound Toggle Button */
+.tk-video-sound-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(245, 242, 237, 0.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  z-index: 3;
+  transition: all var(--tk-transition-fast);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tk-video-sound-toggle:hover {
+  background-color: var(--tk-gold);
+  transform: scale(1.1);
+}
+
+.tk-video-sound-toggle:focus-visible {
+  outline: 2px solid var(--tk-bg-main);
+  outline-offset: 2px;
+}
+
+.tk-video-sound-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Overlay with Gradient */
+.tk-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom,
+      rgba(44, 43, 40, var(--overlay-opacity, 0.4)) 0%,
+      rgba(44, 43, 40, calc(var(--overlay-opacity, 0.4) + 0.2)) 100%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hero Content */
+.tk-hero-content {
+  text-align: center;
+  color: var(--tk-bg-main);
+  max-width: 900px;
+  padding: var(--tk-space-sm);
+  z-index: 3;
+}
+
+.tk-hero-heading {
+  font-family: var(--tk-font-heading);
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.tk-hero-subheading {
+  font-family: var(--tk-font-body);
+  font-size: clamp(16px, 1.5vw, 19px);
+  font-weight: 300;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  opacity: 0.92;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hero Buttons */
+.tk-hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.tk-btn-deity {
+  min-width: 140px;
+  padding: 14px 34px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tk-btn-deity:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .tk-hero-video {
+    min-height: 80vh;
+  }
+
+  .tk-hero-heading {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .tk-hero-subheading {
+    font-size: var(--tk-font-size-body);
+    margin-bottom: var(--tk-space-sm);
+  }
+
+  .tk-hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .tk-btn-deity {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .tk-video-sound-toggle {
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-hero-content {
+    padding: var(--tk-space-xs);
+  }
+
+  .tk-hero-heading {
+    font-size: clamp(28px, 7vw, 36px);
+    margin-bottom: 16px;
+  }
+
+  .tk-hero-subheading {
+    font-size: var(--tk-font-size-small);
+  }
+}
+
+/* ============================================
+   DEITY CARDS WIDGET
+   ============================================ */
+
+.tk-deity-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tk-space-sm);
+  padding: var(--tk-space-xs) 0 0;
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-deity-section {
+  padding: var(--tk-space-md) var(--tk-space-sm) var(--tk-space-md);
+  background-color: #f5f2ed;
+}
+
+.tk-deity-section__header {
+  max-width: var(--tk-max-width);
+  margin: 0 auto var(--tk-space-sm);
+  text-align: center;
+}
+
+.tk-section-subtitle {
+  max-width: 640px;
+  margin: 4px auto 0;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 300;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: rgba(44, 43, 40, 0.7);
+}
+
+.tk-deity-section .tk-section-title {
+  margin-top: 0;
+  margin-bottom: 6px;
+  font-size: clamp(36px, 4.5vw, 46px);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* Individual Deity Card */
+.tk-deity-card {
+  position: relative;
+  min-height: 560px;
+  border-radius: var(--tk-border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--tk-transition-normal);
+  box-shadow: var(--tk-shadow-card);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tk-deity-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--tk-shadow-card-hover);
+}
+
+/* Deity-Specific Color Overlays */
+.tk-deity-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity var(--tk-transition-normal);
+  z-index: 1;
+}
+
+.tk-deity-card--shiva .tk-deity-card__overlay {
+  background: none;
+}
+
+.tk-deity-card--vishnu .tk-deity-card__overlay {
+  background: none;
+}
+
+.tk-deity-card--devi .tk-deity-card__overlay {
+  background: none;
+}
+
+.tk-deity-card:hover .tk-deity-card__overlay {
+  opacity: 0.9;
+}
+
+/* Card Content */
+.tk-deity-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 100%;
+  padding: var(--tk-space-sm);
+  text-align: left;
+  color: var(--tk-bg-main);
+}
+
+.tk-deity-card__mantra {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.tk-deity-card__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h2);
+  font-weight: 400;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform var(--tk-transition-normal);
+}
+
+.tk-deity-card:hover .tk-deity-card__title {
+  transform: translateY(-4px);
+}
+
+.tk-deity-card__description {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.95;
+  max-width: 300px;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  transition: opacity var(--tk-transition-normal);
+}
+
+.tk-deity-card:hover .tk-deity-card__description {
+  opacity: 1;
+}
+
+.tk-deity-card__tagline {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.tk-deity-card__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--tk-space-xs);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.tk-deity-card__cta--shiva {
+  background-color: var(--tk-shiva);
+  color: var(--tk-bg-main);
+}
+
+.tk-deity-card__cta--vishnu {
+  background-color: var(--tk-vishnu);
+  color: var(--tk-bg-main);
+}
+
+.tk-deity-card__cta--devi {
+  background-color: var(--tk-devi);
+  color: var(--tk-bg-main);
+}
+
+.tk-deity-card__cta-arrow {
+  margin-left: 8px;
+}
+
+/* Invisible Link Overlay */
+.tk-deity-card__link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  text-indent: -9999px;
+}
+
+.tk-deity-card__link:focus-visible {
+  outline: 3px solid var(--tk-gold);
+  outline-offset: -3px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .tk-deity-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--tk-space-xs);
+  }
+
+  .tk-deity-card {
+    min-height: 350px;
+  }
+
+  .tk-deity-card__title {
+    font-size: clamp(24px, 4vw, 32px);
+  }
+
+  .tk-deity-card__description {
+    font-size: var(--tk-font-size-small);
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-deity-cards {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-xs);
+    padding: var(--tk-space-sm) var(--tk-space-xs);
+  }
+
+  .tk-deity-card {
+    min-height: 340px;
+  }
+
+  .tk-deity-card__content {
+    padding: var(--tk-space-xs);
+  }
+
+  .tk-deity-card__title {
+    font-size: clamp(28px, 6vw, 36px);
+    margin-bottom: 16px;
+  }
+
+  .tk-deity-card__description {
+    font-size: var(--tk-font-size-body);
+    max-width: 100%;
+  }
+
+  .tk-deity-card__cta {
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .tk-deity-card__cta-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-deity-card {
+    min-height: 320px;
+  }
+
+  .tk-deity-card__title {
+    font-size: clamp(24px, 5vw, 32px);
+  }
+
+  .tk-deity-card__description {
+    font-size: var(--tk-font-size-small);
+  }
+}
+.tk-why-choose-us {
+  position: relative;
+  padding: var(--tk-space-lg) var(--tk-space-sm);
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-section-title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h2);
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: var(--tk-space-md);
+  color: var(--tk-text-main);
+  line-height: 1.3;
+}
+
+.tk-why-choose-us .tk-section-title {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: clamp(30px, 3vw, 38px);
+  margin-bottom: 6px;
+}
+
+.tk-why-choose-us .tk-section-subtitle {
+  text-align: center;
+  margin-bottom: var(--tk-space-md);
+}
+
+.tk-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tk-space-sm);
+  align-items: stretch;
+}
+
+/* Individual Feature Card - matches luxury journey reference */
+.tk-feature {
+  position: relative;
+  text-align: left;
+  padding: 18px 18px 20px;
+  background-color: rgba(245, 242, 237, 0.98);
+  border-radius: 22px;
+  transition: all var(--tk-transition-normal);
+  box-shadow: 0 10px 28px rgba(15, 14, 10, 0.14);
+  border: 1px solid rgba(184, 134, 11, 0.25);
+  overflow: hidden;
+}
+
+/* Removed decorative gold badge */
+.tk-feature::before {
+  content: none;
+}
+
+.tk-feature:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--tk-shadow-card-hover);
+}
+
+/* Feature Image Area */
+.tk-feature__icon {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56%;
+  margin: 0 0 var(--tk-space-xs);
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(15, 14, 10, 0.2);
+}
+
+.tk-feature:hover .tk-feature__icon img {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.tk-feature__icon img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+/* Feature Title */
+.tk-feature__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h3);
+  font-weight: 400;
+  margin-bottom: 12px;
+  color: var(--tk-text-main);
+  line-height: 1.3;
+}
+
+/* Feature Description */
+.tk-feature__description {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.6;
+  color: var(--tk-text-main);
+  opacity: 0.85;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .tk-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--tk-space-xs);
+  }
+
+  .tk-why-choose-us {
+    padding: var(--tk-space-md) var(--tk-space-sm);
+  }
+
+  .tk-feature {
+    padding: 16px 16px 18px;
+  }
+
+  .tk-feature__title {
+    font-size: 20px;
+  }
+
+  .tk-feature__description {
+    font-size: var(--tk-font-size-small);
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-xs);
+  }
+
+  .tk-why-choose-us {
+    padding: var(--tk-space-sm) var(--tk-space-xs);
+  }
+
+  .tk-section-title {
+    font-size: clamp(26px, 5vw, 30px);
+    margin-bottom: var(--tk-space-sm);
+  }
+
+  .tk-feature {
+    padding: 14px 14px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-section-title {
+    font-size: clamp(22px, 6vw, 26px);
+  }
+
+  .tk-feature {
+    padding: 12px 12px 14px;
+    border-radius: 18px;
+  }
+}
+
+/* ============================================
+   PACKAGE CARD WIDGET
+
+============================================*/
+.tk-package-card {
+  background-color: var(--tk-bg-main);
+  border-radius: var(--tk-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tk-shadow-card);
+  transition: all var(--tk-transition-normal);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3D lift and subtle tilt on hover */
+.tk-package-card:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(1deg);
+  box-shadow: var(--tk-shadow-card-hover);
+  transform-style: preserve-3d;
+}
+
+.tk-package-card:active {
+  transform: translateY(-4px) rotateX(1deg) rotateY(0.5deg);
+}
+
+/* Package Image - 1:1.6 aspect ratio */
+.tk-package-card__image {
+  position: relative;
+  width: 100%;
+  padding-bottom: 160%;
+  /* 1:1.6 aspect ratio */
+  overflow: hidden;
+  background-color: #e0ddd8;
+}
+
+.tk-packages-grid .tk-package-card__image {
+  padding-bottom: 66.67%;
+}
+
+.tk-package-card__image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+.tk-package-card:hover .tk-package-card__image img {
+  transform: scale(1.05) rotate(1deg);
+}
+
+/* Package Content */
+.tk-package-card__content {
+  padding: var(--tk-space-xs);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tk-package-card__title {
+  font-family: var(--tk-font-heading);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--tk-text-main);
+  line-height: 1.3;
+}
+
+.tk-package-card__duration {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: var(--tk-text-main);
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+/* Amenity Icons */
+.tk-package-card__icons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.tk-package-card__icons .tk-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 6px;
+  background-color: rgba(44, 43, 40, 0.05);
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-package-card__icons .tk-icon--active {
+  opacity: 1;
+  background-color: rgba(184, 134, 11, 0.1);
+  color: var(--tk-gold);
+  filter: none;
+}
+
+.tk-package-card__icons .tk-icon--inactive {
+  opacity: 0.3;
+  color: var(--tk-text-main);
+  filter: grayscale(100%);
+}
+
+.tk-package-card:hover .tk-package-card__icons .tk-icon--active {
+  transform: scale(1.1);
+  background-color: rgba(184, 134, 11, 0.15);
+}
+
+.tk-package-card--featured .tk-package-card__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(15, 14, 10, 0.95) 0%,
+      rgba(15, 14, 10, 0.55) 45%,
+      rgba(15, 14, 10, 0) 75%);
+  z-index: 1;
+}
+
+.tk-package-card--featured .tk-package-card__image img {
+  transform-origin: center center;
+}
+
+.tk-package-card--featured .tk-package-card__image-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px 22px;
+  z-index: 2;
+}
+
+.tk-package-card--featured .tk-package-card__title {
+  font-size: 24px;
+  color: #f5f2ed;
+  margin-bottom: 4px;
+}
+
+.tk-package-card--featured .tk-package-card__duration {
+  color: rgba(245, 242, 237, 0.85);
+  margin-bottom: 0;
+}
+
+.tk-package-card__badge-wrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+}
+
+.tk-package-card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tk-bg-main);
+}
+
+.tk-package-card__badge--easy {
+  background-color: #2e7d32;
+}
+
+.tk-package-card__badge--moderate {
+  background-color: #f39c12;
+}
+
+.tk-package-card__badge--challenging {
+  background-color: #c0392b;
+}
+
+.tk-package-card--difficulty-easy {
+  border-top: 3px solid #2e7d32;
+}
+
+.tk-package-card--difficulty-moderate {
+  border-top: 3px solid #f39c12;
+}
+
+.tk-package-card--difficulty-challenging {
+  border-top: 3px solid #c0392b;
+}
+
+.tk-package-card__content--featured {
+  padding: 18px 22px 20px;
+  border-top: 1px solid rgba(44, 43, 40, 0.08);
+}
+
+.tk-package-card__content--featured .tk-package-card__icons {
+  margin-bottom: 12px;
+}
+
+.tk-package-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-family: var(--tk-font-body);
+}
+
+.tk-package-card__price-label,
+.tk-package-card__price-note {
+  font-size: var(--tk-font-size-small);
+  color: rgba(44, 43, 40, 0.7);
+}
+
+.tk-package-card__price {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--tk-text-main);
+}
+
+.tk-package-card__cta-row {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(44, 43, 40, 0.08);
+}
+
+.tk-package-card__cta-text {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--tk-vishnu);
+}
+
+.tk-package-card--featured:hover .tk-package-card__cta-text {
+  color: #b46a1b;
+}
+
+.tk-featured-packages__view-all {
+  margin-top: var(--tk-space-sm);
+  text-align: center;
+}
+
+.tk-featured-packages__view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(44, 43, 40, 0.7);
+}
+
+.tk-featured-packages__view-all-link:hover {
+  color: var(--tk-vishnu);
+}
+
+.tk-featured-packages .tk-deity-section__header {
+  margin-bottom: var(--tk-space-md);
+}
+
+/* Key Stops Section - Hidden by default, revealed on hover */
+.tk-package-card__key-stops {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--tk-transition-normal), opacity var(--tk-transition-normal);
+  margin-top: auto;
+}
+
+.tk-package-card--with-stops:hover .tk-package-card__key-stops {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.tk-package-card__key-stops h4 {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  color: var(--tk-gold);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tk-package-card__key-stops ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tk-package-card__key-stops li {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: var(--tk-text-main);
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.tk-package-card__key-stops li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--tk-gold);
+  font-weight: bold;
+}
+
+.tk-sacred-packages {
+  padding: var(--tk-space-md) var(--tk-space-sm) var(--tk-space-lg);
+}
+
+.tk-sacred-tabs {
+  max-width: var(--tk-max-width);
+  margin: 0 auto var(--tk-space-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tk-space-xs);
+}
+
+.tk-sacred-tab {
+  flex: 1 1 0;
+  min-width: 160px;
+  padding: 12px 32px;
+  border-radius: var(--tk-border-radius);
+  border: 1px solid rgba(44, 43, 40, 0.12);
+  background-color: rgba(255, 255, 255, 0.9);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: rgba(44, 43, 40, 0.75);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-sacred-tab:hover {
+  background-color: #f5f2ed;
+}
+
+.tk-sacred-tab.is-active {
+  background-color: var(--tk-gold);
+  border-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+  box-shadow: var(--tk-shadow-card);
+}
+
+.tk-sacred-card-hidden {
+  display: none !important;
+}
+
+/* Focus State for Accessibility */
+.tk-package-card:focus-visible {
+  outline: 3px solid var(--tk-gold);
+  outline-offset: 2px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .tk-package-card__title {
+    font-size: 20px;
+  }
+
+  .tk-package-card__duration {
+    font-size: 14px;
+  }
+
+  .tk-package-card__icons .tk-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  /* Show key stops on mobile without hover */
+  .tk-package-card--with-stops .tk-package-card__key-stops {
+    max-height: none;
+    opacity: 1;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-package-card__content {
+    padding: 16px;
+  }
+
+  .tk-package-card__title {
+    font-size: 18px;
+  }
+
+  .tk-package-card__icons {
+    gap: 8px;
+  }
+
+  .tk-package-card__icons .tk-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   DEITY HERO WIDGET
+   ============================================ */
+
+.tk-deity-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--tk-text-main);
+}
+
+.tk-deity-hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.tk-deity-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.tk-deity-hero--shiva .tk-deity-hero__overlay {
+  background: linear-gradient(to bottom,
+      rgba(26, 27, 58, 0.7) 0%,
+      rgba(26, 27, 58, 0.85) 100%);
+}
+
+.tk-deity-hero--vishnu .tk-deity-hero__overlay {
+  background: linear-gradient(to bottom,
+      rgba(230, 126, 34, 0.7) 0%,
+      rgba(230, 126, 34, 0.85) 100%);
+}
+
+.tk-deity-hero--devi .tk-deity-hero__overlay {
+  background: linear-gradient(to bottom,
+      rgba(139, 21, 56, 0.7) 0%,
+      rgba(139, 21, 56, 0.85) 100%);
+}
+
+.tk-deity-hero__content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--tk-bg-main);
+  max-width: 900px;
+  padding: var(--tk-space-md) var(--tk-space-sm);
+}
+
+.tk-deity-hero__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h1);
+  font-weight: 400;
+  margin-bottom: var(--tk-space-xs);
+  line-height: 1.2;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tk-deity-hero__subtitle {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-h3);
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.95;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .tk-deity-hero {
+    min-height: 50vh;
+  }
+
+  .tk-deity-hero__content {
+    padding: var(--tk-space-sm) var(--tk-space-xs);
+  }
+
+  .tk-deity-hero__title {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .tk-deity-hero__subtitle {
+    font-size: var(--tk-font-size-body);
+  }
+}
+
+/* ============================================
+   PACKAGE FILTER WIDGET
+   ============================================ */
+
+.tk-package-filter {
+  display: flex;
+  gap: var(--tk-space-xs);
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding: var(--tk-space-sm) 0;
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-filter-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.tk-filter-item label {
+  display: block;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 500;
+  color: var(--tk-text-main);
+  margin-bottom: 8px;
+}
+
+.tk-filter-item--checkbox {
+  display: flex;
+  align-items: center;
+  padding-top: 28px;
+}
+
+.tk-filter-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+}
+
+.tk-filter-checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .tk-package-filter {
+    flex-direction: column;
+    gap: var(--tk-space-xs);
+  }
+
+  .tk-filter-item {
+    width: 100%;
+  }
+
+  .tk-filter-item--checkbox {
+    padding-top: 0;
+  }
+}
+
+/* ============================================
+   GUIDES WIDGET
+   ============================================ */
+
+.tk-guides {
+  padding: var(--tk-space-lg) var(--tk-space-sm);
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-guides-grid {
+  display: grid;
+  gap: var(--tk-space-sm);
+}
+
+.tk-guide {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: var(--tk-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tk-shadow-card);
+  transition: all var(--tk-transition-normal);
+}
+
+.tk-guide:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--tk-shadow-card-hover);
+}
+
+.tk-guide__photo {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background-color: #e0ddd8;
+}
+
+.tk-guide__photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+.tk-guide:hover .tk-guide__photo img {
+  transform: scale(1.05);
+}
+
+.tk-guide__content {
+  padding: var(--tk-space-xs);
+  text-align: center;
+}
+
+.tk-guide__name {
+  font-family: var(--tk-font-heading);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--tk-text-main);
+}
+
+.tk-guide__experience {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  color: var(--tk-gold);
+  margin-bottom: 12px;
+}
+
+.tk-guide__bio {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  line-height: 1.6;
+  color: var(--tk-text-main);
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .tk-guides {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+}
+
+/* ============================================
+   LODGES WIDGET
+   ============================================ */
+
+.tk-lodges {
+  padding: var(--tk-space-lg) var(--tk-space-sm);
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-lodges-grid {
+  display: grid;
+  gap: var(--tk-space-sm);
+}
+
+.tk-lodge {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: var(--tk-border-radius);
+  overflow: hidden;
+  box-shadow: var(--tk-shadow-card);
+  transition: all var(--tk-transition-normal);
+}
+
+.tk-lodge:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--tk-shadow-card-hover);
+}
+
+.tk-lodge__photo {
+  position: relative;
+  width: 100%;
+  padding-bottom: 66.67%;
+  overflow: hidden;
+  background-color: #e0ddd8;
+}
+
+.tk-lodge__photo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+.tk-lodge:hover .tk-lodge__photo img {
+  transform: scale(1.05);
+}
+
+.tk-lodge__content {
+  padding: var(--tk-space-xs);
+}
+
+.tk-lodge__name {
+  font-family: var(--tk-font-heading);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--tk-text-main);
+}
+
+.tk-lodge__location {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: var(--tk-text-main);
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.tk-lodge__amenities {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.tk-lodge__amenities li {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: var(--tk-text-main);
+  padding: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .tk-lodges {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+
+  .tk-lodge__amenities {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   CONTACT FORM WIDGET
+   ============================================ */
+
+.tk-contact-form-widget {
+  padding: var(--tk-space-lg) var(--tk-space-sm);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tk-contact-form {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: var(--tk-space-md);
+  border-radius: var(--tk-border-radius);
+  box-shadow: var(--tk-shadow-card);
+}
+
+.tk-form-message {
+  margin-top: var(--tk-space-xs);
+  padding: var(--tk-space-xs);
+  border-radius: var(--tk-border-radius-sm);
+  text-align: center;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+}
+
+.tk-form-message.success {
+  background-color: rgba(45, 122, 62, 0.1);
+  color: #2d7a3e;
+  border: 1px solid #2d7a3e;
+}
+
+.tk-form-message.error {
+  background-color: rgba(196, 30, 58, 0.1);
+  color: #c41e3a;
+  border: 1px solid #c41e3a;
+}
+
+@media (max-width: 768px) {
+  .tk-contact-form-widget {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+
+  .tk-contact-form {
+    padding: var(--tk-space-sm);
+  }
+}
+
+/* ============================================
+   PACKAGE OVERLAY
+   ============================================ */
+
+.tk-package-overlay .tk-overlay__content {
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.tk-overlay__header img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.tk-overlay__body {
+  padding: var(--tk-space-md);
+}
+
+.tk-overlay__details h2 {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h2);
+  margin-bottom: var(--tk-space-xs);
+  color: var(--tk-text-main);
+}
+
+.tk-overlay__duration {
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+  opacity: 0.7;
+  margin-bottom: var(--tk-space-xs);
+}
+
+.tk-overlay__icons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: var(--tk-space-xs);
+}
+
+.tk-overlay__difficulty,
+.tk-overlay__best-months,
+.tk-overlay__price {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  margin-bottom: 12px;
+  color: var(--tk-text-main);
+}
+
+.tk-overlay__price {
+  font-size: 24px;
+  color: var(--tk-gold);
+  font-weight: 600;
+}
+
+.tk-overlay__key-stops {
+  margin: var(--tk-space-sm) 0;
+  padding: var(--tk-space-xs);
+  background-color: rgba(184, 134, 11, 0.05);
+  border-radius: var(--tk-border-radius-sm);
+}
+
+.tk-overlay__key-stops h3 {
+  font-family: var(--tk-font-heading);
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: var(--tk-gold);
+}
+
+.tk-overlay__key-stops ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tk-overlay__key-stops li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+}
+
+.tk-overlay__key-stops li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--tk-gold);
+  font-weight: bold;
+}
+
+.tk-overlay__content {
+  margin-top: var(--tk-space-sm);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.8;
+  color: var(--tk-text-main);
+}
+
+.tk-overlay__sticky-cta {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--tk-bg-main);
+  padding: var(--tk-space-xs);
+  border-top: 1px solid rgba(44, 43, 40, 0.1);
+  text-align: center;
+  box-shadow: 0 -2px 10px rgba(44, 43, 40, 0.05);
+}
+
+.tk-loading-container {
+  text-align: center;
+  padding: var(--tk-space-lg);
+}
+
+.tk-loading-container p {
+  margin-top: var(--tk-space-xs);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+}
+
+.tk-error-message {
+  text-align: center;
+  padding: var(--tk-space-lg);
+  color: #c41e3a;
+}
+
+@media (max-width: 768px) {
+  .tk-package-overlay .tk-overlay__content {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .tk-overlay__header img {
+    height: 250px;
+  }
+
+  .tk-overlay__body {
+    padding: var(--tk-space-sm);
+  }
+}
+
+/* ============================================
+   STICKY BOTTOM BAR (MOBILE)
+   ============================================ */
+
+.tk-sticky-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--tk-bg-main);
+  box-shadow: 0 -2px 10px rgba(44, 43, 40, 0.1);
+  padding: 12px var(--tk-space-xs);
+  display: none;
+  gap: 12px;
+  z-index: 999;
+  transform: translateY(100%);
+  transition: transform var(--tk-transition-normal);
+}
+
+.tk-sticky-bottom-bar.visible {
+  transform: translateY(0);
+}
+
+.tk-sticky-bottom-bar__whatsapp,
+.tk-sticky-bottom-bar__book {
+  flex: 1;
+  padding: 12px 20px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--tk-border-radius-sm);
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-sticky-bottom-bar__whatsapp {
+  background-color: #25D366;
+  color: white;
+  border: 2px solid #25D366;
+}
+
+.tk-sticky-bottom-bar__whatsapp:hover {
+  background-color: #20BA5A;
+  border-color: #20BA5A;
+}
+
+.tk-sticky-bottom-bar__book {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+  border: 2px solid var(--tk-gold);
+}
+
+.tk-sticky-bottom-bar__book:hover {
+  background-color: #9a7109;
+  border-color: #9a7109;
+}
+
+@media (max-width: 768px) {
+  .tk-sticky-bottom-bar {
+    display: flex;
+  }
+}
+
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+
+.tk-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--tk-header-height);
+  background-color: var(--tk-bg-main);
+  z-index: 1000;
+  transition: all var(--tk-transition-normal);
+}
+
+.tk-header.scrolled {
+  height: var(--tk-header-height-scrolled);
+  box-shadow: var(--tk-shadow-header);
+}
+
+.tk-header__container {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  padding: 0 var(--tk-space-sm);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tk-header__logo {
+  font-family: var(--tk-font-heading);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--tk-text-main);
+  text-decoration: none;
+  transition: color var(--tk-transition-fast);
+}
+
+.tk-header__logo:hover {
+  color: var(--tk-gold);
+}
+
+.tk-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-sm);
+}
+
+.tk-header__menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--tk-space-sm);
+}
+
+.tk-header__menu-item {
+  position: relative;
+}
+
+.tk-header__menu-link {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+  text-decoration: none;
+  padding: 8px 0;
+  position: relative;
+  transition: color var(--tk-transition-fast);
+}
+
+.tk-header__menu-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--tk-gold);
+  transition: width var(--tk-transition-normal);
+}
+
+.tk-header__menu-link:hover {
+  color: var(--tk-gold);
+}
+
+.tk-header__menu-link:hover::after {
+  width: 100%;
+}
+
+.tk-header__whatsapp {
+  padding: 10px 24px;
+  background-color: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: var(--tk-border-radius-sm);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-header__whatsapp:hover {
+  background-color: #20BA5A;
+  transform: translateY(-2px);
+}
+
+/* Hamburger Menu */
+.tk-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.tk-hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--tk-text-main);
+  border-radius: 2px;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-hamburger:hover span {
+  background-color: var(--tk-gold);
+}
+
+/* Mobile Menu */
+.tk-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80%;
+  max-width: 300px;
+  background-color: var(--tk-bg-main);
+  box-shadow: 2px 0 10px rgba(44, 43, 40, 0.1);
+  transform: translateX(-100%);
+  transition: transform var(--tk-transition-normal);
+  z-index: 1001;
+  overflow-y: auto;
+}
+
+.tk-mobile-menu.active {
+  transform: translateX(0);
+}
+
+.tk-mobile-menu::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(44, 43, 40, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--tk-transition-normal), visibility var(--tk-transition-normal);
+  z-index: -1;
+}
+
+.tk-mobile-menu.active::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tk-mobile-menu__header {
+  padding: var(--tk-space-sm);
+  border-bottom: 1px solid rgba(44, 43, 40, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tk-mobile-menu__close {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: var(--tk-text-main);
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tk-mobile-menu__nav {
+  padding: var(--tk-space-sm);
+}
+
+.tk-mobile-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tk-mobile-menu__item {
+  margin-bottom: 8px;
+}
+
+.tk-mobile-menu__link {
+  display: block;
+  padding: 12px 16px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  color: var(--tk-text-main);
+  text-decoration: none;
+  border-radius: var(--tk-border-radius-sm);
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-mobile-menu__link:hover {
+  background-color: rgba(184, 134, 11, 0.1);
+  color: var(--tk-gold);
+}
+
+@media (max-width: 768px) {
+
+  .tk-header__menu,
+  .tk-header__whatsapp {
+    display: none;
+  }
+
+  .tk-hamburger {
+    display: flex;
+  }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.tk-footer {
+  background-color: var(--tk-text-main);
+  color: var(--tk-bg-main);
+  padding: var(--tk-space-lg) var(--tk-space-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.tk-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/nepal-map.svg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.tk-footer__container {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.tk-footer__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--tk-space-md);
+  margin-bottom: var(--tk-space-md);
+}
+
+.tk-footer__section h3 {
+  font-family: var(--tk-font-heading);
+  font-size: 22px;
+  margin-bottom: var(--tk-space-xs);
+  color: var(--tk-gold);
+}
+
+.tk-footer__section p,
+.tk-footer__section a {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.8;
+  color: var(--tk-bg-main);
+  opacity: 0.9;
+}
+
+.tk-footer__section a {
+  text-decoration: none;
+  transition: color var(--tk-transition-fast);
+}
+
+.tk-footer__section a:hover {
+  color: var(--tk-gold);
+  opacity: 1;
+}
+
+.tk-footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tk-footer__contact-icon {
+  font-size: 20px;
+  color: var(--tk-gold);
+}
+
+.tk-footer__social {
+  display: flex;
+  gap: 16px;
+  margin-top: var(--tk-space-xs);
+}
+
+.tk-footer__social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(245, 242, 237, 0.1);
+  border-radius: 50%;
+  font-size: 20px;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-footer__social-link:hover {
+  background-color: var(--tk-gold);
+  transform: translateY(-3px);
+}
+
+.tk-footer__bottom {
+  border-top: 1px solid rgba(245, 242, 237, 0.1);
+  padding-top: var(--tk-space-sm);
+  text-align: center;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .tk-footer {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+
+  .tk-footer__content {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-sm);
+  }
+}
+
+/* ============================================
+   HERO VIDEO - HOME PAGE STYLE
+   ============================================ */
+
+/* Hero Icon (Trishul) */
+.tk-hero-icon {
+  margin-bottom: 30px;
+  color: var(--tk-gold);
+  opacity: 0.85;
+  animation: tk-float 3s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tk-hero-icon svg {
+  width: 32px;
+  height: 48px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  display: block;
+}
+
+@keyframes tk-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Primary Button (Gold) */
+.tk-btn-primary {
+  background-color: var(--tk-gold);
+  color: var(--tk-text-main);
+  border-color: var(--tk-gold);
+  padding: 13px 32px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.tk-btn-primary:hover {
+  background-color: #c9a02c;
+  border-color: #c9a02c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Secondary Button (Outlined) */
+.tk-btn-secondary {
+  background-color: transparent;
+  color: var(--tk-bg-main);
+  border: 2px solid rgba(245, 242, 237, 0.8);
+  padding: 11px 30px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.tk-btn-secondary:hover {
+  background-color: rgba(245, 242, 237, 0.15);
+  border-color: var(--tk-bg-main);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Scroll Indicator */
+.tk-hero-scroll {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--tk-bg-main);
+  z-index: 3;
+  cursor: pointer;
+  transition: all var(--tk-transition-fast);
+}
+
+.tk-hero-scroll:hover {
+  transform: translateX(-50%) translateY(5px);
+}
+
+.tk-hero-scroll-text {
+  font-family: var(--tk-font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.tk-hero-scroll-arrow {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+  animation: tk-bounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes tk-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Responsive Adjustments for New Hero */
+@media (max-width: 768px) {
+  .tk-hero-icon {
+    margin-bottom: 24px;
+  }
+
+  .tk-hero-icon svg {
+    width: 28px;
+    height: 42px;
+  }
+
+  .tk-hero-heading {
+    margin-bottom: 16px;
+  }
+
+  .tk-hero-subheading {
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+
+  .tk-hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .tk-hero-buttons .tk-btn-primary,
+  .tk-hero-buttons .tk-btn-secondary {
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+
+  .tk-hero-scroll {
+    bottom: 35px;
+  }
+
+  .tk-hero-scroll-text {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .tk-hero-scroll-arrow {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tk-hero-wave {
+    height: 60px;
+  }
+
+  .tk-hero-wave svg {
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-hero-icon {
+    margin-bottom: 20px;
+  }
+
+  .tk-hero-icon svg {
+    width: 24px;
+    height: 36px;
+  }
+
+  .tk-hero-heading {
+    margin-bottom: 14px;
+  }
+
+  .tk-hero-subheading {
+    margin-bottom: 28px;
+    font-size: 15px;
+  }
+
+  .tk-btn-primary,
+  .tk-btn-secondary {
+    padding: 11px 24px;
+    font-size: 13px;
+  }
+
+  .tk-hero-scroll {
+    bottom: 25px;
+  }
+
+  .tk-hero-scroll-text {
+    font-size: 9px;
+    letter-spacing: 1.8px;
+  }
+
+  .tk-hero-scroll-arrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tk-hero-wave {
+    height: 40px;
+  }
+
+  .tk-hero-wave svg {
+    height: 40px;
+  }
+}
+
+.tk-sacred-hero {
+  position: relative;
+  padding: 140px 0 96px;
+  background: radial-gradient(circle at top, #26264b 0%, #151525 55%, #151525 100%);
+  color: var(--tk-bg-main);
+  text-align: center;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.tk-sacred-hero__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--tk-space-sm);
+}
+
+.tk-sacred-hero__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  color: var(--tk-gold);
+}
+
+.tk-sacred-hero__divider-line {
+  display: block;
+  width: 46px;
+  height: 2px;
+  background-color: var(--tk-gold);
+  opacity: 0.7;
+}
+
+.tk-sacred-hero__arrow {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.tk-sacred-hero__title {
+  font-family: var(--tk-font-heading);
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.tk-sacred-hero__subtitle {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+  color: rgba(245, 242, 237, 0.9);
+}
+
+@media (max-width: 768px) {
+  .tk-sacred-hero {
+    padding: 120px 0 80px;
+  }
+
+  .tk-sacred-hero__inner {
+    padding: 0 var(--tk-space-xs);
+  }
+
+  .tk-sacred-hero__title {
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-sacred-hero {
+    padding: 110px 0 70px;
+  }
+
+  .tk-sacred-hero__title {
+    font-size: clamp(30px, 7vw, 38px);
+  }
+
+  .tk-sacred-hero__subtitle {
+    font-size: var(--tk-font-size-small);
+  }
+}
+
+.tk-package-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  min-height: 70vh;
+  background-size: cover;
+  background-position: center center;
+  color: var(--tk-bg-main);
+}
+
+.tk-package-hero__overlay {
+  position: relative;
+  padding: 120px 0 120px;
+  background: linear-gradient(to bottom,
+      rgba(15, 14, 10, 0.0) 0%,
+      rgba(15, 14, 10, 0.25) 45%,
+      rgba(15, 14, 10, 0.55) 100%);
+}
+
+.tk-package-hero__inner {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  padding: 0 var(--tk-space-sm);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 52vh;
+}
+
+.tk-package-hero__card {
+  width: 100%;
+  max-width: 960px;
+  padding: 28px 40px 26px;
+  border-radius: 24px;
+  background: rgba(245, 242, 237, 0.16);
+  border: 1px solid rgba(245, 242, 237, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 18px 45px rgba(15, 14, 10, 0.55);
+}
+
+.tk-package-hero__content {
+  max-width: 760px;
+}
+
+.tk-package-hero__title {
+  font-family: var(--tk-font-heading);
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 500;
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+
+.tk-package-hero__subtitle {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  max-width: 620px;
+  line-height: 1.7;
+  color: rgba(245, 242, 237, 0.9);
+  margin: 0 0 24px;
+}
+
+.tk-package-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.tk-package-hero__meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: rgba(15, 14, 10, 0.4);
+  color: rgba(245, 242, 237, 0.95);
+  font-size: var(--tk-font-size-small);
+}
+
+.tk-package-hero__meta-pill::before {
+  content: "\2022";
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.tk-package-hero__breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  color: rgba(245, 242, 237, 0.8);
+}
+
+.tk-package-hero__breadcrumb-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tk-package-hero__breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.tk-package-hero__breadcrumb-separator {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .tk-package-hero__overlay {
+    padding: 120px 0 80px;
+  }
+
+  .tk-package-hero__inner {
+    padding: 0 var(--tk-space-xs);
+  }
+
+  .tk-package-hero__card {
+    padding: 20px 18px 18px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-package-hero__overlay {
+    padding: 110px 0 64px;
+  }
+}
+
+.tk-package-overview {
+  padding: var(--tk-space-lg) var(--tk-space-sm) calc(var(--tk-space-lg) * 1.4);
+  background-color: var(--tk-bg-main);
+}
+
+.tk-package-overview .tk-container {
+  max-width: var(--tk-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tk-package-overview__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1.1fr);
+  gap: var(--tk-space-lg);
+  align-items: flex-start;
+}
+
+.tk-package-overview__header {
+  margin-bottom: 20px;
+}
+
+.tk-package-overview__eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background-color: rgba(184, 134, 11, 0.06);
+  color: var(--tk-gold);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tk-package-overview__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h2);
+  font-weight: 400;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.tk-package-overview__underline {
+  display: inline-block;
+  width: 64px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tk-gold), var(--tk-shiva));
+}
+
+.tk-package-overview__body {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.85;
+  color: var(--tk-text-main);
+}
+
+.tk-package-overview__body p {
+  margin: 0 0 1.4em;
+}
+
+.tk-package-overview__body p:last-child {
+  margin-bottom: 0;
+}
+
+.tk-package-overview__body p:first-of-type {
+  font-size: calc(var(--tk-font-size-body) * 1.03);
+  font-weight: 400;
+}
+
+.tk-package-key-details {
+  background-color: #f5f2ed;
+  border-radius: var(--tk-border-radius);
+  padding: 24px 24px 20px;
+  box-shadow: var(--tk-shadow-card);
+  border-top: 3px solid var(--tk-gold);
+}
+
+.tk-package-key-details__title {
+  font-family: var(--tk-font-heading);
+  font-size: 16px;
+  margin: 0 0 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(44, 43, 40, 0.85);
+}
+
+.tk-package-key-details__list {
+  margin: 0;
+}
+
+.tk-package-key-details__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(44, 43, 40, 0.08);
+}
+
+.tk-package-key-details__row:first-of-type {
+  border-top: none;
+}
+
+.tk-package-key-details__label {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(44, 43, 40, 0.75);
+}
+
+.tk-package-key-details__value {
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-small);
+  text-align: right;
+  color: var(--tk-text-main);
+}
+
+@media (max-width: 900px) {
+  .tk-package-overview__layout {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-package-overview {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+
+  .tk-package-overview__layout {
+    grid-template-columns: 1fr;
+    gap: var(--tk-space-sm);
+  }
+}
+
+.tk-package-accordion {
+  padding: 0 var(--tk-space-sm) var(--tk-space-lg);
+  background-color: var(--tk-bg-main);
+}
+
+.tk-package-accordion__inner {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+}
+
+.tk-package-accordion__item {
+  margin-bottom: 12px;
+  border-radius: var(--tk-border-radius-sm);
+  border: 1px solid rgba(44, 43, 40, 0.12);
+  background-color: #f8f5f0;
+  overflow: hidden;
+}
+
+.tk-package-accordion__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  font-family: var(--tk-font-body);
+}
+
+.tk-package-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.tk-package-accordion__summary-text {
+  font-size: var(--tk-font-size-body);
+  font-weight: 500;
+}
+
+.tk-package-accordion__summary-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(44, 43, 40, 0.3);
+  position: relative;
+}
+
+.tk-package-accordion__summary-icon::before,
+.tk-package-accordion__summary-icon::after {
+  content: "";
+  position: absolute;
+  inset: 50%;
+  width: 10px;
+  height: 1px;
+  background-color: rgba(44, 43, 40, 0.8);
+  transform-origin: center;
+}
+
+.tk-package-accordion__summary-icon::before {
+  transform: translate(-50%, -50%);
+}
+
+.tk-package-accordion__summary-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.tk-package-accordion__item[open] .tk-package-accordion__summary-icon::after {
+  opacity: 0;
+}
+
+.tk-package-accordion__content {
+  padding: 0 18px 18px;
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .tk-package-accordion {
+    padding: 0 var(--tk-space-xs) var(--tk-space-md);
+  }
+}
+
+.tk-package-gallery {
+  padding: var(--tk-space-lg) var(--tk-space-sm) var(--tk-space-lg);
+  background-color: #f5f2ed;
+}
+
+.tk-package-gallery__title {
+  font-family: var(--tk-font-heading);
+  font-size: var(--tk-font-size-h2);
+  text-align: center;
+  margin: 0 0 var(--tk-space-md);
+}
+
+.tk-package-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--tk-space-xs);
+}
+
+.tk-package-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--tk-border-radius-sm);
+  background-color: #e0ddd8;
+}
+
+.tk-package-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tk-transition-slow);
+}
+
+.tk-package-gallery__item:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .tk-package-gallery__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .tk-package-gallery {
+    padding: var(--tk-space-md) var(--tk-space-xs);
+  }
+
+  .tk-package-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .tk-package-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tk-package-cta-bar {
+  padding: 18px var(--tk-space-sm);
+  background-color: #f5f2ed;
+  border-top: 1px solid rgba(44, 43, 40, 0.08);
+}
+
+.tk-package-cta-bar__inner {
+  max-width: var(--tk-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tk-space-xs);
+}
+
+.tk-package-cta-bar__price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--tk-font-body);
+}
+
+.tk-package-cta-bar__price-prefix,
+.tk-package-cta-bar__price-suffix {
+  font-size: var(--tk-font-size-small);
+  color: rgba(44, 43, 40, 0.7);
+}
+
+.tk-package-cta-bar__price-value {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .tk-package-cta-bar {
+    padding: 16px var(--tk-space-xs);
+  }
+
+  .tk-package-cta-bar__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tk-package-cta-bar__price {
+    justify-content: center;
+  }
+
+  .tk-package-cta-bar__button {
+    width: 100%;
+    text-align: center;
+  }
+}

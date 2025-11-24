@@ -1,0 +1,20 @@
+/**
+ * Trip Kailash Theme - Main Stylesheet
+ * Imports all CSS files in the correct order
+ */
+
+/* 1. Design System Variables */
+@import url('variables.css');
+
+/* 2. Base Styles (Reset, Typography, Body) */
+@import url('base.css');
+
+/* 3. Component Styles (Buttons, Cards, Forms, Icons) */
+@import url('components.css');
+
+/* 4. Layout Components */
+@import url('header.css');
+@import url('footer.css');
+
+/* 5. Elementor Overrides (must be last) */
+@import url('elementor-overrides.css');

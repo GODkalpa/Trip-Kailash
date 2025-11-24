@@ -1,0 +1,280 @@
+/**
+ * Trip Kailash Theme - Base Styles
+ * CSS Reset, body styles, and base typography
+ */
+
+/* ============================================
+   CRITICAL RESETS - Remove all spacing
+   ============================================ */
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Remove WordPress admin bar top margin */
+body.admin-bar {
+  margin-top: 0 !important;
+}
+
+/* Adjust header position for admin bar */
+body.admin-bar .tk-header {
+  top: 32px !important;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .tk-header {
+    top: 46px !important;
+  }
+}
+
+/* ============================================
+   CSS RESET
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================
+   BODY STYLES
+   ============================================ */
+
+body {
+  background-color: var(--tk-bg-main);
+  color: var(--tk-text-main);
+  font-family: var(--tk-font-body);
+  font-size: var(--tk-font-size-body);
+  line-height: 1.6;
+}
+
+/* Remove WordPress admin bar spacing */
+body.admin-bar .tk-header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .tk-header {
+    top: 46px;
+  }
+}
+
+/* Remove default page/site margins */
+#page,
+.site {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure body starts at top of viewport */
+body {
+  padding-top: 0 !important;
+}
+
+/* Ensure full width for Elementor sections */
+.elementor-section.elementor-section-boxed > .elementor-container {
+  max-width: 100%;
+}
+
+/* Remove all margins and padding from hero video section */
+.tk-hero-video {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove Elementor default padding for hero sections */
+.elementor-widget-trip-kailash-hero-video {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.elementor-widget-trip-kailash-hero-video .elementor-widget-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure hero section is full width */
+.elementor-section:has(.tk-hero-video) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.elementor-section:has(.tk-hero-video) > .elementor-container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ============================================
+   BASE TYPOGRAPHY
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--tk-font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: var(--tk-space-xs);
+}
+
+h1 {
+  font-size: var(--tk-font-size-h1);
+}
+
+h2 {
+  font-size: var(--tk-font-size-h2);
+}
+
+h3 {
+  font-size: var(--tk-font-size-h3);
+}
+
+p {
+  margin-bottom: var(--tk-space-xs);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+small {
+  font-size: var(--tk-font-size-small);
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--tk-gold);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================
+   SELECTION STYLES
+   ============================================ */
+
+::selection {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+}
+
+::-moz-selection {
+  background-color: var(--tk-gold);
+  color: var(--tk-bg-main);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.tk-container {
+  max-width: var(--tk-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--tk-space-sm);
+  padding-right: var(--tk-space-sm);
+}
+
+.tk-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   BODY SCROLL LOCK (for overlays/modals)
+   ============================================ */
+
+body.tk-scroll-locked {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
