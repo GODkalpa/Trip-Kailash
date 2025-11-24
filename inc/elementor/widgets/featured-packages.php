@@ -127,6 +127,31 @@ class Featured_Packages extends Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'view_all_link_text',
+            [
+                'label' => __('View All Link Text', 'trip-kailash'),
+                'type' => Controls_Manager::TEXT,
+                'default' => __('View All Sacred Journeys', 'trip-kailash'),
+                'placeholder' => __('Enter link text', 'trip-kailash'),
+            ]
+        );
+
+        $this->add_control(
+            'view_all_custom_url',
+            [
+                'label' => __('View All Custom URL', 'trip-kailash'),
+                'type' => Controls_Manager::URL,
+                'placeholder' => __('https://your-link.com', 'trip-kailash'),
+                'description' => __('Leave empty to use the default pilgrimage packages archive page', 'trip-kailash'),
+                'default' => [
+                    'url' => '',
+                    'is_external' => false,
+                    'nofollow' => false,
+                ],
+            ]
+        );
+
         $this->end_controls_section();
     }
 
@@ -185,8 +210,21 @@ class Featured_Packages extends Widget_Base {
             </div>
 
             <div class="tk-featured-packages__view-all">
-                <a href="<?php echo esc_url(get_post_type_archive_link('pilgrimage_package')); ?>" class="tk-featured-packages__view-all-link">
-                    <?php esc_html_e('View All Sacred Journeys', 'trip-kailash'); ?>
+                <?php
+                // Get custom URL settings
+                $view_all_url = !empty($settings['view_all_custom_url']['url']) 
+                    ? $settings['view_all_custom_url']['url'] 
+                    : get_post_type_archive_link('pilgrimage_package');
+                
+                $view_all_text = !empty($settings['view_all_link_text']) 
+                    ? $settings['view_all_link_text'] 
+                    : __('View All Sacred Journeys', 'trip-kailash');
+                
+                $target = !empty($settings['view_all_custom_url']['is_external']) ? ' target="_blank"' : '';
+                $nofollow = !empty($settings['view_all_custom_url']['nofollow']) ? ' rel="nofollow"' : '';
+                ?>
+                <a href="<?php echo esc_url($view_all_url); ?>" class="tk-featured-packages__view-all-link"<?php echo $target . $nofollow; ?>>
+                    <?php echo esc_html($view_all_text); ?>
                 </a>
             </div>
         </section>
