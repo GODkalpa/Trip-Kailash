@@ -61,7 +61,6 @@ require_once TRIP_KAILASH_DIR . '/inc/enqueue.php';
 require_once TRIP_KAILASH_DIR . '/inc/custom-post-types.php';
 require_once TRIP_KAILASH_DIR . '/inc/taxonomies.php';
 require_once TRIP_KAILASH_DIR . '/inc/rest-api.php';
-require_once TRIP_KAILASH_DIR . '/inc/page-duplication.php';
 
 // Include Elementor integration if Elementor is active
 if ( did_action( 'elementor/loaded' ) ) {
