@@ -135,21 +135,16 @@ class Pilgrimage_Highlights extends Widget_Base {
             list-style: none;
             margin: 0;
             padding: 0;
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: var(--tk-space-xs, 21px);
             max-width: 900px;
         }
 
-        .tk-highlights-list--cols-1 {
-            grid-template-columns: 1fr;
-        }
-
-        .tk-highlights-list--cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
+        .tk-highlights-list--cols-1,
+        .tk-highlights-list--cols-2,
         .tk-highlights-list--cols-3 {
-            grid-template-columns: repeat(3, 1fr);
+            /* Single column for all settings */
         }
 
         .tk-highlights-list__item {
@@ -174,11 +169,6 @@ class Pilgrimage_Highlights extends Widget_Base {
         @media (max-width: 768px) {
             .tk-pilgrimage-highlights {
                 padding: var(--tk-space-md, 55px) 0;
-            }
-
-            .tk-highlights-list--cols-2,
-            .tk-highlights-list--cols-3 {
-                grid-template-columns: 1fr;
             }
 
             .tk-highlights-list__item {

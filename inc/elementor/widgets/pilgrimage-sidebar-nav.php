@@ -301,7 +301,7 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
             position: relative;
             background: #FFFFFF;
             padding: 0;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             width: 100%;
@@ -325,19 +325,19 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
         .tk-sidebar-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding: 24px;
+            gap: 12px;
+            padding: 14px 16px;
             border-bottom: 1px solid #E5E5E5;
         }
 
         .tk-sidebar-header__image {
             flex-shrink: 0;
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             overflow: hidden;
             background: #F0F0F0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .tk-sidebar-header__image img {
@@ -351,8 +351,8 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
         }
 
         .tk-sidebar-header__title {
-            margin: 0 0 4px 0;
-            font-size: 20px;
+            margin: 0 0 2px 0;
+            font-size: 15px;
             font-weight: 600;
             color: #4A5568;
             line-height: 1.3;
@@ -360,14 +360,14 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
 
         .tk-sidebar-header__subtitle {
             margin: 0;
-            font-size: 15px;
+            font-size: 12px;
             color: #718096;
             font-weight: 400;
         }
 
         /* Navigation */
         .tk-sidebar-nav {
-            padding: 16px 0;
+            padding: 8px 0;
         }
 
         .tk-sidebar-nav__list {
@@ -383,10 +383,10 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
         .tk-sidebar-nav__link {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 14px 24px;
+            gap: 10px;
+            padding: 8px 16px;
             font-family: var(--tk-font-body, sans-serif);
-            font-size: 16px;
+            font-size: 13px;
             color: #4A5568;
             text-decoration: none;
             transition: all 0.2s ease;
@@ -409,16 +409,16 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            font-size: 18px;
+            width: 16px;
+            font-size: 14px;
             color: inherit;
             flex-shrink: 0;
         }
 
         .tk-sidebar-nav__icon i,
         .tk-sidebar-nav__icon svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
         }
 
         .tk-sidebar-nav__label {
@@ -427,20 +427,20 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
 
         /* CTA Button */
         .tk-sidebar-cta {
-            padding: 20px 24px 24px;
+            padding: 12px 16px 14px;
         }
 
         .tk-sidebar-cta__button {
             display: block;
             width: 100%;
-            padding: 16px 24px;
+            padding: 10px 16px;
             background: linear-gradient(135deg, #D4A574 0%, #C89658 100%);
             color: #FFFFFF;
             text-align: center;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
         }
@@ -453,6 +453,96 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
         }
 
         /* Responsive */
+        /* Small laptops (14" and below - typically 800px height or less) */
+        @media (max-height: 800px) {
+            .tk-sidebar-header {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            
+            .tk-sidebar-header__image {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .tk-sidebar-header__title {
+                font-size: 13px;
+            }
+            
+            .tk-sidebar-header__subtitle {
+                font-size: 11px;
+            }
+            
+            .tk-sidebar-nav {
+                padding: 6px 0;
+            }
+            
+            .tk-sidebar-nav__link {
+                padding: 6px 14px;
+                font-size: 12px;
+                gap: 8px;
+            }
+            
+            .tk-sidebar-nav__icon {
+                width: 14px;
+                font-size: 12px;
+            }
+            
+            .tk-sidebar-nav__icon i,
+            .tk-sidebar-nav__icon svg {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .tk-sidebar-cta {
+                padding: 10px 14px 12px;
+            }
+            
+            .tk-sidebar-cta__button {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+        
+        /* Very small screens (height < 700px) */
+        @media (max-height: 700px) {
+            .tk-sidebar-header {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            
+            .tk-sidebar-header__image {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .tk-sidebar-header__title {
+                font-size: 12px;
+            }
+            
+            .tk-sidebar-header__subtitle {
+                font-size: 10px;
+            }
+            
+            .tk-sidebar-nav {
+                padding: 4px 0;
+            }
+            
+            .tk-sidebar-nav__link {
+                padding: 5px 12px;
+                font-size: 11px;
+            }
+            
+            .tk-sidebar-cta {
+                padding: 8px 12px 10px;
+            }
+            
+            .tk-sidebar-cta__button {
+                padding: 7px 12px;
+                font-size: 11px;
+            }
+        }
+        
         @media (max-width: 1024px) {
             .tk-sticky-sidebar__inner.is-fixed,
             .tk-sticky-sidebar__inner.is-bottom {

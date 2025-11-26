@@ -13,7 +13,6 @@
         <div class="tk-footer__main">
             <div class="tk-footer__brand">
                 <?php if ( function_exists( 'trip_kailash_site_logo' ) ) { trip_kailash_site_logo(); } ?>
-                <h3 class="tk-footer__title">Trip Kailash</h3>
                 <p class="tk-footer__tagline">Sacred luxury pilgrimages guided by devotion, elevated by comfort: Walk the path of gods with us.</p>
             </div>
             
@@ -21,10 +20,29 @@
                 <div class="tk-footer__column">
                     <h4>Sacred Paths</h4>
                     <ul>
-                        <li><a href="<?php echo esc_url( home_url( '/kailash-manasarovar' ) ); ?>">Kailash Manasarovar</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/gosaikunda-lakes' ) ); ?>">Gosaikunda Lakes</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/temple-circuits' ) ); ?>">Temple Circuits</a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/custom-yatra' ) ); ?>">Custom Yatra</a></li>
+                        <?php
+                        // Get recent pilgrimage packages
+                        $packages = get_posts( array(
+                            'post_type'      => 'pilgrimage_package',
+                            'posts_per_page' => 4,
+                            'post_status'    => 'publish',
+                            'orderby'        => 'date',
+                            'order'          => 'DESC',
+                        ) );
+                        
+                        if ( $packages ) {
+                            foreach ( $packages as $package ) {
+                                ?>
+                                <li><a href="<?php echo esc_url( get_permalink( $package->ID ) ); ?>"><?php echo esc_html( $package->post_title ); ?></a></li>
+                                <?php
+                            }
+                        } else {
+                            // Fallback if no packages exist
+                            ?>
+                            <li><a href="<?php echo esc_url( home_url( '/packages' ) ); ?>">View All Packages</a></li>
+                            <?php
+                        }
+                        ?>
                     </ul>
                 </div>
                 
