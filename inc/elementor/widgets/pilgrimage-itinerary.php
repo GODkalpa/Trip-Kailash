@@ -108,6 +108,8 @@ class Pilgrimage_Itinerary extends Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $total_days = count( $settings['days'] );
+        $show_more_button = $total_days > 5;
         ?>
         <section class="tk-pilgrimage-itinerary">
             <div class="tk-container">
@@ -117,8 +119,10 @@ class Pilgrimage_Itinerary extends Widget_Base {
 
                 <?php if ( ! empty( $settings['days'] ) ) : ?>
                     <div class="tk-itinerary-accordion">
-                        <?php foreach ( $settings['days'] as $day ) : ?>
-                            <details class="tk-itinerary-item" <?php echo ( 'yes' === $day['open_by_default'] ) ? 'open' : ''; ?>>
+                        <?php foreach ( $settings['days'] as $index => $day ) : 
+                            $is_hidden = $show_more_button && $index >= 5;
+                        ?>
+                            <details class="tk-itinerary-item <?php echo $is_hidden ? 'tk-itinerary-item--hidden' : ''; ?>" <?php echo ( 'yes' === $day['open_by_default'] ) ? 'open' : ''; ?>>
                                 <summary class="tk-itinerary-item__summary">
                                     <span class="tk-itinerary-item__day"><?php echo esc_html( $day['day_number'] ); ?></span>
                                     <span class="tk-itinerary-item__title"><?php echo esc_html( $day['day_title'] ); ?></span>
@@ -132,6 +136,17 @@ class Pilgrimage_Itinerary extends Widget_Base {
                             </details>
                         <?php endforeach; ?>
                     </div>
+                    
+                    <?php if ( $show_more_button ) : ?>
+                        <div class="tk-itinerary-show-more">
+                            <button class="tk-itinerary-show-more__btn" type="button">
+                                <span class="tk-itinerary-show-more__text">Show More</span>
+                                <svg class="tk-itinerary-show-more__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </section>
@@ -159,6 +174,11 @@ class Pilgrimage_Itinerary extends Widget_Base {
             border-radius: var(--tk-border-radius, 10px);
             margin-bottom: var(--tk-space-xs, 21px);
             overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .tk-itinerary-item--hidden {
+            display: none;
         }
 
         .tk-itinerary-item__summary {
@@ -211,6 +231,46 @@ class Pilgrimage_Itinerary extends Widget_Base {
             font-size: var(--tk-font-size-body, 18px);
             line-height: 1.8;
             color: var(--tk-text-main, #2C2B28);
+        }
+
+        .tk-itinerary-show-more {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--tk-space-md, 55px);
+        }
+
+        .tk-itinerary-show-more__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: transparent;
+            border: 2px solid var(--tk-gold, #B8860B);
+            border-radius: var(--tk-border-radius, 10px);
+            font-family: var(--tk-font-body, sans-serif);
+            font-size: var(--tk-font-size-body, 18px);
+            font-weight: 600;
+            color: var(--tk-gold, #B8860B);
+            cursor: pointer;
+            transition: all var(--tk-transition-fast, 0.2s ease);
+        }
+
+        .tk-itinerary-show-more__btn:hover {
+            background: var(--tk-gold, #B8860B);
+            color: #FFFFFF;
+        }
+
+        .tk-itinerary-show-more__btn:hover .tk-itinerary-show-more__icon {
+            color: #FFFFFF;
+        }
+
+        .tk-itinerary-show-more__icon {
+            color: var(--tk-gold, #B8860B);
+            transition: transform var(--tk-transition-fast, 0.2s ease), color var(--tk-transition-fast, 0.2s ease);
+        }
+
+        .tk-itinerary-show-more__btn.is-expanded .tk-itinerary-show-more__icon {
+            transform: rotate(180deg);
         }
 
         @media (max-width: 768px) {

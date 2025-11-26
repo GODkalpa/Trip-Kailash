@@ -119,6 +119,7 @@ class Pilgrimage_Overview extends Widget_Base {
 
     protected function render() {
         $settings = $this->get_settings_for_display();
+        $widget_id = $this->get_id();
         ?>
         <section class="tk-pilgrimage-overview">
             <div class="tk-overview-box" data-version="v2">
@@ -129,10 +130,19 @@ class Pilgrimage_Overview extends Widget_Base {
                 <?php endif; ?>
 
                 <?php if ( ! empty( $settings['description'] ) ) : ?>
-                    <div class="tk-overview-content">
-                        <div class="tk-pilgrimage-overview__description">
-                            <?php echo wp_kses_post( $settings['description'] ); ?>
+                    <div class="tk-overview-content" data-overview-content>
+                        <div class="tk-overview-content-wrapper">
+                            <div class="tk-pilgrimage-overview__description tk-overview-collapsible">
+                                <?php echo wp_kses_post( $settings['description'] ); ?>
+                            </div>
+                            <div class="tk-overview-fade"></div>
                         </div>
+                        <button class="tk-overview-see-more" type="button">
+                            <span class="tk-overview-see-more__text">See More</span>
+                            <svg class="tk-overview-see-more__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
                     </div>
                 <?php endif; ?>
 
@@ -203,6 +213,68 @@ class Pilgrimage_Overview extends Widget_Base {
             line-height: 1.8;
             margin: 0 !important;
             padding: 0 !important;
+        }
+
+        /* Collapsible Content */
+        .tk-overview-content-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tk-overview-collapsible {
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .tk-overview-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1;
+        }
+
+        .tk-overview-content.is-expanded .tk-overview-fade {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .tk-overview-content.is-expanded .tk-overview-content-wrapper {
+            overflow: visible;
+        }
+
+        .tk-overview-see-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            font-family: var(--tk-font-body, sans-serif);
+            font-size: var(--tk-font-size-body, 18px);
+            font-weight: 600;
+            color: var(--tk-gold, #B8860B);
+            cursor: pointer;
+            transition: color var(--tk-transition-fast, 0.2s ease);
+            position: relative;
+            z-index: 2;
+        }
+
+        .tk-overview-see-more:hover {
+            color: #9A7209;
+        }
+
+        .tk-overview-see-more__icon {
+            transition: transform var(--tk-transition-fast, 0.2s ease);
+        }
+
+        .tk-overview-see-more.is-expanded .tk-overview-see-more__icon {
+            transform: rotate(180deg);
         }
 
         /* Stats Section */

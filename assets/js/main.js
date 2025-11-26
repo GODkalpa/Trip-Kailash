@@ -14,6 +14,8 @@
         initFormPreFill();
         initPackageCardLinks();
         initSacredPackageTabs();
+        initItineraryShowMore();
+        initOverviewSeeMore();
     });
 
     /**
@@ -38,6 +40,91 @@
         });
     }
     
+    /**
+     * Overview See More/Less Toggle
+     */
+    function initOverviewSeeMore() {
+        const overviewContainers = document.querySelectorAll('[data-overview-content]');
+        
+        overviewContainers.forEach(container => {
+            const content = container.querySelector('.tk-overview-collapsible');
+            const fade = container.querySelector('.tk-overview-fade');
+            const btn = container.querySelector('.tk-overview-see-more');
+            
+            if (!content || !btn) return;
+
+            // Get full content height and calculate 25% to show initially
+            const fullHeight = content.scrollHeight;
+            const collapsedHeight = Math.max(fullHeight * 0.25, 100); // Show 25%, minimum 100px
+            
+            // If content is short enough, no need for collapse
+            if (fullHeight <= 200) {
+                btn.style.display = 'none';
+                if (fade) fade.style.display = 'none';
+                content.style.maxHeight = 'none';
+                return;
+            }
+
+            // Set initial collapsed height
+            content.style.maxHeight = collapsedHeight + 'px';
+
+            btn.addEventListener('click', function() {
+                const textSpan = btn.querySelector('.tk-overview-see-more__text');
+                const isExpanded = container.classList.contains('is-expanded');
+
+                if (isExpanded) {
+                    // Collapse - set back to 25%
+                    container.classList.remove('is-expanded');
+                    content.classList.remove('is-expanded');
+                    btn.classList.remove('is-expanded');
+                    content.style.maxHeight = collapsedHeight + 'px';
+                    textSpan.textContent = 'See More';
+                } else {
+                    // Expand - show full content
+                    container.classList.add('is-expanded');
+                    content.classList.add('is-expanded');
+                    btn.classList.add('is-expanded');
+                    content.style.maxHeight = fullHeight + 'px';
+                    textSpan.textContent = 'See Less';
+                }
+            });
+        });
+    }
+
+    /**
+     * Itinerary Show More/Less Toggle
+     */
+    function initItineraryShowMore() {
+        const showMoreBtns = document.querySelectorAll('.tk-itinerary-show-more__btn');
+        
+        showMoreBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const section = btn.closest('.tk-pilgrimage-itinerary');
+                if (!section) return;
+
+                const hiddenItems = section.querySelectorAll('.tk-itinerary-item--hidden');
+                const textSpan = btn.querySelector('.tk-itinerary-show-more__text');
+                const isExpanded = btn.classList.contains('is-expanded');
+
+                if (isExpanded) {
+                    // Collapse - hide items
+                    hiddenItems.forEach(item => {
+                        item.style.display = 'none';
+                    });
+                    btn.classList.remove('is-expanded');
+                    textSpan.textContent = 'Show More';
+                } else {
+                    // Expand - show items
+                    hiddenItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                    btn.classList.add('is-expanded');
+                    textSpan.textContent = 'Show Less';
+                }
+            });
+        });
+    }
+
     function initSacredPackageTabs() {
         const sections = document.querySelectorAll('[data-sacred-packages]');
         if (!sections.length) return;

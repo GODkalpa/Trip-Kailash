@@ -114,6 +114,22 @@ function trip_kailash_register_elementor_widgets( $widgets_manager ) {
     require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/pilgrimage-inquiry-form.php';
     $widgets_manager->register( new \TripKailash\Elementor\Widgets\Pilgrimage_Inquiry_Form() );
 
+    // Pilgrimage Info Grid Widget (package details with icons)
+    require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/pilgrimage-info-grid.php';
+    $widgets_manager->register( new \TripKailash\Elementor\Widgets\Pilgrimage_Info_Grid() );
+
+    // Pilgrimage Inclusions & Exclusions Widget
+    require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/pilgrimage-inclusions.php';
+    $widgets_manager->register( new \TripKailash\Elementor\Widgets\Pilgrimage_Inclusions() );
+
+    // Pilgrimage FAQ Widget
+    require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/pilgrimage-faq.php';
+    $widgets_manager->register( new \TripKailash\Elementor\Widgets\Pilgrimage_FAQ() );
+
+    // Pilgrimage Highlights Widget
+    require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/pilgrimage-highlights.php';
+    $widgets_manager->register( new \TripKailash\Elementor\Widgets\Pilgrimage_Highlights() );
+
     // Booking page dedicated widget: detailed enquiry form
     require_once TRIP_KAILASH_DIR . '/inc/elementor/widgets/booking-page-form.php';
     $widgets_manager->register( new \TripKailash\Elementor\Widgets\Booking_Page_Form() );
