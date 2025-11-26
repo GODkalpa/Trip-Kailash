@@ -287,7 +287,7 @@ class Featured_Packages extends Widget_Base {
                 <?php if ($has_price): ?>
                     <div class="tk-package-card__price-row">
                         <span class="tk-package-card__price-label"><?php esc_html_e('From', 'trip-kailash'); ?></span>
-                        <span class="tk-package-card__price"><?php echo esc_html(number_format_i18n($price_from)); ?></span>
+                        <span class="tk-package-card__price">$<?php echo esc_html(number_format_i18n($price_from)); ?></span>
                         <span class="tk-package-card__price-note"><?php esc_html_e('per person', 'trip-kailash'); ?></span>
                     </div>
                 <?php endif; ?>

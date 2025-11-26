@@ -62,7 +62,7 @@ class Pilgrimage_Pricing_Bar extends Widget_Base {
             [
                 'label'       => __( 'Price', 'trip-kailash' ),
                 'type'        => Controls_Manager::TEXT,
-                'default'     => __( 'NPR 125000', 'trip-kailash' ),
+                'default'     => __( '$1,250', 'trip-kailash' ),
                 'dynamic'     => [ 'active' => true ],
             ]
         );
@@ -171,7 +171,14 @@ class Pilgrimage_Pricing_Bar extends Widget_Base {
                             
                             <div class="tk-pricing-bar__amount-wrap">
                                 <?php if ( ! empty( $settings['price'] ) ) : ?>
-                                    <span class="tk-pricing-bar__amount"><?php echo esc_html( $settings['price'] ); ?></span>
+                                    <?php
+                                    $price = $settings['price'];
+                                    // Add $ prefix if price doesn't already have a currency symbol
+                                    if ( ! preg_match('/^[\$₹€£¥]/', $price) ) {
+                                        $price = '$' . $price;
+                                    }
+                                    ?>
+                                    <span class="tk-pricing-bar__amount"><?php echo esc_html( $price ); ?></span>
                                 <?php endif; ?>
 
                                 <?php if ( ! empty( $settings['price_suffix'] ) ) : ?>
