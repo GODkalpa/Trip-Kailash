@@ -628,7 +628,7 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
             // Configuration
             const CONFIG = {
                 headerHeight: 72, 
-                buffer: 10,
+                buffer: 5,
                 adminBarHeight: 32,
                 mobileBreakpoint: 1024
             };
@@ -683,8 +683,9 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
                 const pricingBarHeight = pricingBar ? pricingBar.offsetHeight : 0;
                 const hasAdminBar = document.body.classList.contains('admin-bar');
                 
-                // Calculate total top offset: Header + Pricing Bar + Buffer + Admin Bar
-                const topOffset = CONFIG.headerHeight + pricingBarHeight + CONFIG.buffer + (hasAdminBar ? CONFIG.adminBarHeight : 0);
+                // Calculate total top offset: Pricing Bar + 5px padding + buffer
+                // This makes the sidebar stick right below the pricing bar with small gap for maximum viewport usage
+                const topOffset = pricingBarHeight + 5 + CONFIG.buffer + (hasAdminBar ? CONFIG.adminBarHeight : 0);
 
                 // 2. Get Dimensions
                 const containerRect = container.getBoundingClientRect();
@@ -700,7 +701,7 @@ class Pilgrimage_Sidebar_Nav extends Widget_Base {
                 // 4. Calculate Stop Point
                 // We stop when the bottom of the sidebar hits the bottom of the container
                 // Add extra buffer to stop earlier
-                const hitBottom = (topOffset + sidebarHeight) >= (containerRect.bottom - CONFIG.buffer - 150);
+                const hitBottom = (topOffset + sidebarHeight) >= (containerRect.bottom - CONFIG.buffer - 50);
 
                 if (shouldStick) {
                     // Lock width to the wrapper's width to prevent resizing when fixed
