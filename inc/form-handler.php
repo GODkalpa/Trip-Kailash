@@ -159,7 +159,8 @@ function tk_check_form_rate_limit()
     $transient_key = 'tk_form_limit_' . md5($ip);
     $submissions = get_transient($transient_key);
 
-    if ($submissions >= 5) {
+    // Limit to 50 submissions per hour (increased for testing, reduce to 5-10 in production)
+    if ($submissions >= 50) {
         wp_send_json_error(array(
             'message' => __('Too many submissions. Please try again later.', 'trip-kailash')
         ));
