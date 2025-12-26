@@ -34,14 +34,27 @@ function tk_handle_contact_form()
         return;
     }
 
-    // Sanitize form data
+    // Sanitize basic form data
     $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
     $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+    $recipient = isset($_POST['email_recipient']) ? sanitize_email($_POST['email_recipient']) : get_option('admin_email');
+    $form_context = isset($_POST['form_context']) ? sanitize_text_field($_POST['form_context']) : 'contact';
+
+    // Sanitize booking-specific fields
+    $phone_code = isset($_POST['phone_country_code']) ? sanitize_text_field($_POST['phone_country_code']) : '';
+    $phone = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
+    $emergency_code = isset($_POST['emergency_country_code']) ? sanitize_text_field($_POST['emergency_country_code']) : '';
+    $emergency_contact = isset($_POST['emergency_contact']) ? sanitize_text_field($_POST['emergency_contact']) : '';
+    $country = isset($_POST['country']) ? sanitize_text_field($_POST['country']) : '';
+    $passport = isset($_POST['passport_number']) ? sanitize_text_field($_POST['passport_number']) : '';
     $package = isset($_POST['package_interest']) ? sanitize_text_field($_POST['package_interest']) : '';
     $travel_month = isset($_POST['travel_month']) ? sanitize_text_field($_POST['travel_month']) : '';
+    $travel_dates = isset($_POST['travel_dates']) ? sanitize_text_field($_POST['travel_dates']) : '';
+    $travel_start = isset($_POST['travel_start']) ? sanitize_text_field($_POST['travel_start']) : '';
+    $travel_end = isset($_POST['travel_end']) ? sanitize_text_field($_POST['travel_end']) : '';
     $group_size = isset($_POST['group_size']) ? absint($_POST['group_size']) : '';
+    $room_type = isset($_POST['room_type']) ? sanitize_text_field($_POST['room_type']) : '';
     $message = isset($_POST['message']) ? sanitize_textarea_field($_POST['message']) : '';
-    $recipient = isset($_POST['email_recipient']) ? sanitize_email($_POST['email_recipient']) : get_option('admin_email');
 
     // Validate required fields
     if (empty($name)) {
@@ -65,58 +78,50 @@ function tk_handle_contact_form()
 
     // Build email subject
     $site_name = get_bloginfo('name');
-    $subject = sprintf(
-        /* translators: 1: Site name, 2: Sender name */
-        __('[%1$s] New Inquiry from %2$s', 'trip-kailash'),
-        $site_name,
-        $name
-    );
 
-    // Build email body
-    $body = sprintf(__('You have received a new inquiry from your website.', 'trip-kailash')) . "\n\n";
-    $body .= "================================\n\n";
-    $body .= sprintf(__('Name: %s', 'trip-kailash'), $name) . "\n";
-    $body .= sprintf(__('Email: %s', 'trip-kailash'), $email) . "\n";
-
-    if (!empty($package)) {
-        $body .= sprintf(__('Package Interest: %s', 'trip-kailash'), $package) . "\n";
+    if ($form_context === 'booking_detail' || $form_context === 'booking_search') {
+        $subject = sprintf('[%s] Booking Request from %s', $site_name, $name);
+    } else {
+        $subject = sprintf('[%s] New Inquiry from %s', $site_name, $name);
     }
 
-    if (!empty($travel_month)) {
-        $body .= sprintf(__('Preferred Travel Month: %s', 'trip-kailash'), $travel_month) . "\n";
-    }
+    // Build HTML email body for better formatting
+    $body = tk_build_email_body($form_context, array(
+        'name' => $name,
+        'email' => $email,
+        'phone_code' => $phone_code,
+        'phone' => $phone,
+        'emergency_code' => $emergency_code,
+        'emergency_contact' => $emergency_contact,
+        'country' => $country,
+        'passport' => $passport,
+        'package' => $package,
+        'travel_month' => $travel_month,
+        'travel_dates' => $travel_dates,
+        'travel_start' => $travel_start,
+        'travel_end' => $travel_end,
+        'group_size' => $group_size,
+        'room_type' => $room_type,
+        'message' => $message,
+    ));
 
-    if (!empty($group_size)) {
-        $body .= sprintf(__('Group Size: %d', 'trip-kailash'), $group_size) . "\n";
-    }
-
-    $body .= "\n" . __('Message:', 'trip-kailash') . "\n";
-    $body .= "--------------------------------\n";
-    $body .= (!empty($message) ? $message : __('(No message provided)', 'trip-kailash')) . "\n";
-    $body .= "--------------------------------\n\n";
-
-    $body .= sprintf(__('Sent from: %s', 'trip-kailash'), home_url()) . "\n";
-    $body .= sprintf(__('Date: %s', 'trip-kailash'), wp_date('F j, Y \a\t g:i a')) . "\n";
-
-    // Email headers
+    // Email headers - HTML format
     $headers = array(
-        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Type: text/html; charset=UTF-8',
         'Reply-To: ' . $name . ' <' . $email . '>',
     );
 
-    // Debug logging - helps identify issues
+    // Debug logging
     error_log('Trip Kailash Form: Attempting to send email to: ' . $recipient);
     error_log('Trip Kailash Form: Subject: ' . $subject);
-    error_log('Trip Kailash Form: From: ' . $name . ' <' . $email . '>');
+    error_log('Trip Kailash Form: Form context: ' . $form_context);
 
     // Send email using wp_mail (WP Mail SMTP will intercept this)
     $sent = wp_mail($recipient, $subject, $body, $headers);
 
-    // Debug: Log the result
     error_log('Trip Kailash Form: wp_mail returned: ' . ($sent ? 'true' : 'false'));
 
     if ($sent) {
-        // Log successful submission (optional - can be removed in production)
         do_action('tk_contact_form_sent', array(
             'name' => $name,
             'email' => $email,
@@ -129,14 +134,12 @@ function tk_handle_contact_form()
             'debug_info' => 'Email sent successfully via wp_mail'
         ));
     } else {
-        // Get the last mail error if available
         global $phpmailer;
         $mail_error = '';
         if (isset($phpmailer) && is_object($phpmailer) && isset($phpmailer->ErrorInfo)) {
             $mail_error = $phpmailer->ErrorInfo;
         }
 
-        // Log error for debugging
         error_log('Trip Kailash: Failed to send contact form email to ' . $recipient);
         error_log('Trip Kailash: Mail error: ' . $mail_error);
 
@@ -144,6 +147,168 @@ function tk_handle_contact_form()
             'message' => __('Sorry, there was an error sending your message. Please try again or contact us directly.', 'trip-kailash')
         ));
     }
+}
+
+/**
+ * Build a nicely formatted HTML email body
+ */
+function tk_build_email_body($form_context, $data)
+{
+    $is_booking = ($form_context === 'booking_detail' || $form_context === 'booking_search');
+
+    // Start building HTML
+    $html = '
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; }
+            .header { background: linear-gradient(135deg, #B8860B, #DAA520); color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+            .header h1 { margin: 0; font-size: 24px; }
+            .content { background: #f9f9f9; padding: 25px; border: 1px solid #ddd; }
+            .section { margin-bottom: 20px; }
+            .section-title { font-size: 14px; color: #888; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+            .field { margin-bottom: 12px; }
+            .field-label { font-weight: bold; color: #555; display: inline-block; min-width: 150px; }
+            .field-value { color: #333; }
+            .message-box { background: white; padding: 15px; border-left: 4px solid #B8860B; margin-top: 10px; }
+            .footer { background: #333; color: #999; padding: 15px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px; }
+            .highlight { background: #FFF8DC; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>' . ($is_booking ? '🙏 New Booking Request' : '✉️ New Inquiry') . '</h1>
+        </div>
+        <div class="content">';
+
+    // Contact Information Section
+    $html .= '<div class="section">
+        <div class="section-title">Contact Information</div>
+        <div class="field">
+            <span class="field-label">Name:</span>
+            <span class="field-value">' . esc_html($data['name']) . '</span>
+        </div>
+        <div class="field">
+            <span class="field-label">Email:</span>
+            <span class="field-value"><a href="mailto:' . esc_attr($data['email']) . '">' . esc_html($data['email']) . '</a></span>
+        </div>';
+
+    if (!empty($data['phone'])) {
+        $full_phone = $data['phone_code'] . ' ' . $data['phone'];
+        $html .= '<div class="field">
+            <span class="field-label">Phone / WhatsApp:</span>
+            <span class="field-value">' . esc_html($full_phone) . '</span>
+        </div>';
+    }
+
+    if (!empty($data['emergency_contact'])) {
+        $full_emergency = $data['emergency_code'] . ' ' . $data['emergency_contact'];
+        $html .= '<div class="field">
+            <span class="field-label">Emergency Contact:</span>
+            <span class="field-value">' . esc_html($full_emergency) . '</span>
+        </div>';
+    }
+
+    if (!empty($data['country'])) {
+        $html .= '<div class="field">
+            <span class="field-label">Country:</span>
+            <span class="field-value">' . esc_html($data['country']) . '</span>
+        </div>';
+    }
+
+    if (!empty($data['passport'])) {
+        $html .= '<div class="field">
+            <span class="field-label">Passport Number:</span>
+            <span class="field-value">' . esc_html($data['passport']) . '</span>
+        </div>';
+    }
+
+    $html .= '</div>'; // End Contact Section
+
+    // Travel Details Section
+    $has_travel_details = !empty($data['package']) || !empty($data['travel_month']) ||
+        !empty($data['travel_dates']) || !empty($data['travel_start']) ||
+        !empty($data['group_size']) || !empty($data['room_type']);
+
+    if ($has_travel_details) {
+        $html .= '<div class="section">
+            <div class="section-title">Travel Details</div>';
+
+        if (!empty($data['package'])) {
+            $html .= '<div class="field highlight">
+                <span class="field-label">Preferred Package:</span>
+                <span class="field-value"><strong>' . esc_html($data['package']) . '</strong></span>
+            </div>';
+        }
+
+        if (!empty($data['travel_month'])) {
+            $html .= '<div class="field">
+                <span class="field-label">Travel Month:</span>
+                <span class="field-value">' . esc_html($data['travel_month']) . '</span>
+            </div>';
+        }
+
+        if (!empty($data['travel_dates'])) {
+            $html .= '<div class="field">
+                <span class="field-label">Travel Dates:</span>
+                <span class="field-value">' . esc_html($data['travel_dates']) . '</span>
+            </div>';
+        }
+
+        if (!empty($data['travel_start']) || !empty($data['travel_end'])) {
+            $dates = $data['travel_start'];
+            if (!empty($data['travel_end'])) {
+                $dates .= ' → ' . $data['travel_end'];
+            }
+            $html .= '<div class="field">
+                <span class="field-label">Travel Dates:</span>
+                <span class="field-value">' . esc_html($dates) . '</span>
+            </div>';
+        }
+
+        if (!empty($data['group_size'])) {
+            $html .= '<div class="field">
+                <span class="field-label">Number of Travellers:</span>
+                <span class="field-value">' . esc_html($data['group_size']) . ' person(s)</span>
+            </div>';
+        }
+
+        if (!empty($data['room_type'])) {
+            $room_labels = array(
+                'single' => 'Single Room',
+                'triple' => 'Triple Room',
+                'custom' => 'Mixed / Custom',
+            );
+            $room_display = isset($room_labels[$data['room_type']]) ? $room_labels[$data['room_type']] : 'Standard Twin / Double';
+            $html .= '<div class="field">
+                <span class="field-label">Room Preference:</span>
+                <span class="field-value">' . esc_html($room_display) . '</span>
+            </div>';
+        }
+
+        $html .= '</div>'; // End Travel Section
+    }
+
+    // Message Section
+    $html .= '<div class="section">
+        <div class="section-title">Message / Special Requests</div>
+        <div class="message-box">' .
+        (!empty($data['message']) ? nl2br(esc_html($data['message'])) : '<em>No message provided</em>') .
+        '</div>
+    </div>';
+
+    // Footer
+    $html .= '</div>
+        <div class="footer">
+            Sent from <a href="' . home_url() . '" style="color: #B8860B;">' . get_bloginfo('name') . '</a><br>
+            ' . wp_date('F j, Y \a\t g:i a') . '
+        </div>
+    </body>
+    </html>';
+
+    return $html;
 }
 
 // Register AJAX handlers for both logged-in and logged-out users
