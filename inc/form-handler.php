@@ -124,7 +124,9 @@ function tk_handle_contact_form()
         ));
 
         wp_send_json_success(array(
-            'message' => __('Thank you for your message. We will get back to you soon!', 'trip-kailash')
+            'message' => __('Thank you for your message. We will get back to you soon!', 'trip-kailash'),
+            'sent_to' => $recipient,
+            'debug_info' => 'Email sent successfully via wp_mail'
         ));
     } else {
         // Get the last mail error if available

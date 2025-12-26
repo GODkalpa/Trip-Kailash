@@ -289,6 +289,10 @@
         })
         .then(response => response.json())
         .then(data => {
+            // Debug logging - check browser console (F12) to see details
+            console.log('Form submission response:', data);
+            console.log('Email recipient configured:', form.querySelector('[name="email_recipient"]')?.value);
+            
             if (data.success) {
                 const successMsg = form.querySelector('[name="success_message"]').value;
                 showFormMessage(form, successMsg, 'success');
