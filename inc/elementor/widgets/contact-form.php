@@ -12,25 +12,31 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Contact_Form extends Widget_Base {
+class Contact_Form extends Widget_Base
+{
 
-    public function get_name() {
+    public function get_name()
+    {
         return 'tk-contact-form';
     }
 
-    public function get_title() {
+    public function get_title()
+    {
         return __('Contact Form', 'trip-kailash');
     }
 
-    public function get_icon() {
+    public function get_icon()
+    {
         return 'eicon-form-horizontal';
     }
 
-    public function get_categories() {
+    public function get_categories()
+    {
         return ['trip-kailash'];
     }
 
-    protected function register_controls() {
+    protected function register_controls()
+    {
         $this->start_controls_section(
             'content_section',
             [
@@ -80,7 +86,8 @@ class Contact_Form extends Widget_Base {
         $this->end_controls_section();
     }
 
-    protected function render() {
+    protected function render()
+    {
         $settings = $this->get_settings_for_display();
 
         // Get all packages for dropdown
@@ -96,34 +103,29 @@ class Contact_Form extends Widget_Base {
             <?php if ($settings['form_title']): ?>
                 <h2 class="tk-section-title"><?php echo esc_html($settings['form_title']); ?></h2>
             <?php endif; ?>
-            
+
             <form class="tk-form tk-contact-form" id="tk-contact-form" method="post" action="">
                 <?php wp_nonce_field('tk_contact_form', 'tk_contact_nonce'); ?>
-                
+
                 <input type="hidden" name="action" value="tk_submit_contact_form">
                 <input type="hidden" name="email_recipient" value="<?php echo esc_attr($settings['email_recipient']); ?>">
                 <input type="hidden" name="success_message" value="<?php echo esc_attr($settings['success_message']); ?>">
-                
-                <div class="tk-form-group">
-                    <input 
-                        type="text" 
-                        name="name" 
-                        class="tk-form-input" 
-                        placeholder="<?php _e('Your Name', 'trip-kailash'); ?>" 
-                        required
-                    >
+
+                <!-- Honeypot spam trap - hidden from users, bots will fill it -->
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                    <input type="text" name="tk_website_url" value="" tabindex="-1" autocomplete="off">
                 </div>
-                
+
                 <div class="tk-form-group">
-                    <input 
-                        type="email" 
-                        name="email" 
-                        class="tk-form-input" 
-                        placeholder="<?php _e('Your Email', 'trip-kailash'); ?>" 
-                        required
-                    >
+                    <input type="text" name="name" class="tk-form-input" placeholder="<?php _e('Your Name', 'trip-kailash'); ?>"
+                        required>
                 </div>
-                
+
+                <div class="tk-form-group">
+                    <input type="email" name="email" class="tk-form-input"
+                        placeholder="<?php _e('Your Email', 'trip-kailash'); ?>" required>
+                </div>
+
                 <div class="tk-form-group">
                     <select name="package_interest" id="tk-package-interest" class="tk-form-select">
                         <option value=""><?php _e('Select Package (Optional)', 'trip-kailash'); ?></option>
@@ -134,40 +136,27 @@ class Contact_Form extends Widget_Base {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                
+
                 <div class="tk-form-group">
-                    <input 
-                        type="text" 
-                        name="travel_month" 
-                        class="tk-form-input" 
-                        placeholder="<?php _e('Preferred Travel Month', 'trip-kailash'); ?>"
-                    >
+                    <input type="text" name="travel_month" class="tk-form-input"
+                        placeholder="<?php _e('Preferred Travel Month', 'trip-kailash'); ?>">
                 </div>
-                
+
                 <div class="tk-form-group">
-                    <input 
-                        type="number" 
-                        name="group_size" 
-                        class="tk-form-input" 
-                        placeholder="<?php _e('Group Size', 'trip-kailash'); ?>" 
-                        min="1"
-                    >
+                    <input type="number" name="group_size" class="tk-form-input"
+                        placeholder="<?php _e('Group Size', 'trip-kailash'); ?>" min="1">
                 </div>
-                
+
                 <div class="tk-form-group">
-                    <textarea 
-                        name="message" 
-                        class="tk-form-textarea" 
-                        placeholder="<?php _e('Your Message', 'trip-kailash'); ?>" 
-                        rows="5"
-                    ></textarea>
+                    <textarea name="message" class="tk-form-textarea" placeholder="<?php _e('Your Message', 'trip-kailash'); ?>"
+                        rows="5"></textarea>
                 </div>
-                
+
                 <button type="submit" class="tk-btn tk-btn-gold">
                     <?php echo esc_html($settings['submit_button_text']); ?>
                 </button>
             </form>
-            
+
             <div class="tk-form-message" style="display:none;"></div>
         </section>
         <?php

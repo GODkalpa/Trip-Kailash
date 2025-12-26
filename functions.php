@@ -7,23 +7,24 @@
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
 // Define theme constants
-define( 'TRIP_KAILASH_VERSION', '1.0.0' );
-define( 'TRIP_KAILASH_DIR', get_template_directory() );
-define( 'TRIP_KAILASH_URI', get_template_directory_uri() );
+define('TRIP_KAILASH_VERSION', '1.0.0');
+define('TRIP_KAILASH_DIR', get_template_directory());
+define('TRIP_KAILASH_URI', get_template_directory_uri());
 
 /**
  * Theme Setup
  */
-function trip_kailash_setup() {
+function trip_kailash_setup()
+{
     // Add theme support for various features
-    add_theme_support( 'title-tag' );
-    add_theme_support( 'post-thumbnails' );
-    add_theme_support( 'html5', array(
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('html5', array(
         'search-form',
         'comment-form',
         'comment-list',
@@ -31,28 +32,28 @@ function trip_kailash_setup() {
         'caption',
         'style',
         'script'
-    ) );
-    add_theme_support( 'custom-logo', array(
-        'height'      => 80,
-        'width'       => 200,
+    ));
+    add_theme_support('custom-logo', array(
+        'height' => 80,
+        'width' => 200,
         'flex-height' => true,
-        'flex-width'  => true,
-    ) );
-    add_theme_support( 'responsive-embeds' );
-    add_theme_support( 'editor-styles' );
+        'flex-width' => true,
+    ));
+    add_theme_support('responsive-embeds');
+    add_theme_support('editor-styles');
 
     // Register navigation menus
-    register_nav_menus( array(
-        'primary' => esc_html__( 'Primary Menu', 'trip-kailash' ),
-        'mobile'  => esc_html__( 'Mobile Menu', 'trip-kailash' ),
-    ) );
+    register_nav_menus(array(
+        'primary' => esc_html__('Primary Menu', 'trip-kailash'),
+        'mobile' => esc_html__('Mobile Menu', 'trip-kailash'),
+    ));
 
     // Set content width
-    if ( ! isset( $content_width ) ) {
+    if (!isset($content_width)) {
         $content_width = 1400;
     }
 }
-add_action( 'after_setup_theme', 'trip_kailash_setup' );
+add_action('after_setup_theme', 'trip_kailash_setup');
 
 /**
  * Include required files
@@ -61,48 +62,54 @@ require_once TRIP_KAILASH_DIR . '/inc/enqueue.php';
 require_once TRIP_KAILASH_DIR . '/inc/custom-post-types.php';
 require_once TRIP_KAILASH_DIR . '/inc/taxonomies.php';
 require_once TRIP_KAILASH_DIR . '/inc/rest-api.php';
+require_once TRIP_KAILASH_DIR . '/inc/form-handler.php';
 
 // Include Elementor integration if Elementor is active
-if ( did_action( 'elementor/loaded' ) ) {
+if (did_action('elementor/loaded')) {
     require_once TRIP_KAILASH_DIR . '/inc/elementor/elementor-init.php';
 }
 
 /**
  * Admin notice if Elementor is not active
  */
-function trip_kailash_elementor_notice() {
-    if ( ! did_action( 'elementor/loaded' ) ) {
+function trip_kailash_elementor_notice()
+{
+    if (!did_action('elementor/loaded')) {
         ?>
         <div class="notice notice-warning is-dismissible">
-            <p><?php esc_html_e( 'Trip Kailash theme requires Elementor to be installed and activated.', 'trip-kailash' ); ?></p>
+            <p><?php esc_html_e('Trip Kailash theme requires Elementor to be installed and activated.', 'trip-kailash'); ?>
+            </p>
         </div>
         <?php
     }
 }
-add_action( 'admin_notices', 'trip_kailash_elementor_notice' );
+add_action('admin_notices', 'trip_kailash_elementor_notice');
 
 /**
  * Flush rewrite rules on theme activation
  */
-function trip_kailash_activation() {
+function trip_kailash_activation()
+{
     trip_kailash_register_post_types();
     trip_kailash_register_taxonomies();
     flush_rewrite_rules();
 }
-add_action( 'after_switch_theme', 'trip_kailash_activation' );
+add_action('after_switch_theme', 'trip_kailash_activation');
 
 /**
  * Override Elementor default content width
  */
-function trip_kailash_elementor_content_width() {
+function trip_kailash_elementor_content_width()
+{
     return 100;
 }
-add_filter( 'elementor/page_settings/content_width', 'trip_kailash_elementor_content_width' );
+add_filter('elementor/page_settings/content_width', 'trip_kailash_elementor_content_width');
 
 /**
  * Remove Elementor default page wrapper padding
  */
-function trip_kailash_remove_elementor_padding( $settings ) {
+function trip_kailash_remove_elementor_padding($settings)
+{
     $settings['padding'] = [
         'unit' => 'px',
         'top' => 0,
@@ -113,52 +120,57 @@ function trip_kailash_remove_elementor_padding( $settings ) {
     ];
     return $settings;
 }
-add_filter( 'elementor/frontend/section/should_render', '__return_true' );
+add_filter('elementor/frontend/section/should_render', '__return_true');
 
 /**
  * Add body class for full-width layout and hero detection
  */
-function trip_kailash_body_classes( $classes ) {
+function trip_kailash_body_classes($classes)
+{
     $classes[] = 'tk-full-width';
-    
+
     // Check if page has hero widget
-    if ( function_exists( 'get_post_meta' ) && get_the_ID() ) {
-        $elementor_data = get_post_meta( get_the_ID(), '_elementor_data', true );
-        if ( ! empty( $elementor_data ) ) {
+    if (function_exists('get_post_meta') && get_the_ID()) {
+        $elementor_data = get_post_meta(get_the_ID(), '_elementor_data', true);
+        if (!empty($elementor_data)) {
             // Check if page contains hero widgets
-            if ( strpos( $elementor_data, 'trip-kailash-hero-video' ) !== false || 
-                 strpos( $elementor_data, 'tk-deity-hero' ) !== false ) {
+            if (
+                strpos($elementor_data, 'trip-kailash-hero-video') !== false ||
+                strpos($elementor_data, 'tk-deity-hero') !== false
+            ) {
                 $classes[] = 'has-hero-section';
             }
         }
     }
-    
+
     return $classes;
 }
-add_filter( 'body_class', 'trip_kailash_body_classes' );
+add_filter('body_class', 'trip_kailash_body_classes');
 
-function trip_kailash_enable_elementor_for_cpts() {
-    $post_types = array( 'pilgrimage_package', 'guide', 'lodge' );
-    $supported  = get_option( 'elementor_cpt_support', array( 'post', 'page' ) );
+function trip_kailash_enable_elementor_for_cpts()
+{
+    $post_types = array('pilgrimage_package', 'guide', 'lodge');
+    $supported = get_option('elementor_cpt_support', array('post', 'page'));
 
-    if ( ! is_array( $supported ) ) {
-        $supported = array( 'post', 'page' );
+    if (!is_array($supported)) {
+        $supported = array('post', 'page');
     }
 
-    $supported = array_unique( array_merge( $supported, $post_types ) );
+    $supported = array_unique(array_merge($supported, $post_types));
 
-    update_option( 'elementor_cpt_support', $supported );
+    update_option('elementor_cpt_support', $supported);
 }
-add_action( 'init', 'trip_kailash_enable_elementor_for_cpts' );
+add_action('init', 'trip_kailash_enable_elementor_for_cpts');
 
-function trip_kailash_site_logo() {
-    if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
+function trip_kailash_site_logo()
+{
+    if (function_exists('the_custom_logo') && has_custom_logo()) {
         echo get_custom_logo();
     } else {
         ?>
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <a href="<?php echo esc_url(home_url('/')); ?>">
             <span class="tk-logo-icon">↑</span>
-            <span class="tk-logo-text"><?php bloginfo( 'name' ); ?></span>
+            <span class="tk-logo-text"><?php bloginfo('name'); ?></span>
         </a>
         <?php
     }
