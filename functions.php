@@ -63,6 +63,11 @@ require_once TRIP_KAILASH_DIR . '/inc/custom-post-types.php';
 require_once TRIP_KAILASH_DIR . '/inc/taxonomies.php';
 require_once TRIP_KAILASH_DIR . '/inc/rest-api.php';
 require_once TRIP_KAILASH_DIR . '/inc/form-handler.php';
+require_once TRIP_KAILASH_DIR . '/inc/seo.php';
+require_once TRIP_KAILASH_DIR . '/inc/schema.php';
+require_once TRIP_KAILASH_DIR . '/inc/sitemap.php';
+require_once TRIP_KAILASH_DIR . '/inc/performance.php';
+require_once TRIP_KAILASH_DIR . '/inc/geo-content.php';
 
 // Include Elementor integration if Elementor is active
 if (did_action('elementor/loaded')) {

@@ -25,6 +25,15 @@ function trip_kailash_enqueue_assets() {
         TRIP_KAILASH_VERSION,
         'all'
     );
+    
+    // Enqueue SEO components stylesheet
+    wp_enqueue_style(
+        'trip-kailash-seo-components',
+        TRIP_KAILASH_URI . '/assets/css/seo-components.css',
+        array('trip-kailash-main'),
+        TRIP_KAILASH_VERSION,
+        'all'
+    );
 
     // Enqueue JavaScript files
     // Overlay script for package details
