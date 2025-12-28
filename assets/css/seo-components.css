@@ -330,7 +330,7 @@
     .tk-mobile-contact-buttons {
         display: flex;
     }
-    
+
     /* Add padding to body to account for fixed bottom bar */
     body {
         padding-bottom: 70px;
@@ -339,9 +339,18 @@
 
 /* ==========================================================================
    Content Wrapper (Semantic)
+   This is a semantic wrapper for Schema.org markup, NOT for layout constraints.
+   For constrained-width content (like blog posts), use .tk-article-content instead.
    ========================================================================== */
 
 .tk-content-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* For blog posts and articles where constrained width is desired */
+.tk-article-content {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 1rem;
 }

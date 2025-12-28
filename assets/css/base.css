@@ -133,9 +133,63 @@ body {
   padding-top: 0 !important;
 }
 
-/* Ensure full width for Elementor sections */
+/* ============================================
+   SITE MAIN - Full Width Layout
+   ============================================ */
+
+.site-main {
+  width: 100%;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ============================================
+   ELEMENTOR FULL WIDTH OVERRIDES
+   ============================================ */
+
+/* Force all Elementor sections to be full width */
+.elementor-section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Override Elementor's default container width for ALL sections */
+.elementor-section > .elementor-container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Ensure boxed sections also go full width */
 .elementor-section.elementor-section-boxed > .elementor-container {
-  max-width: 100%;
+  max-width: 100% !important;
+}
+
+/* Full width sections - no restrictions */
+.elementor-section.elementor-section-full_width {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.elementor-section.elementor-section-full_width > .elementor-container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Override any inline styles Elementor may apply */
+.elementor-section[data-settings] > .elementor-container {
+  max-width: 100% !important;
+}
+
+/* Ensure columns inside stretch properly */
+.elementor-column {
+  width: 100%;
+}
+
+/* Override the Elementor kit/site settings container width */
+.elementor-kit-* .elementor-section > .elementor-container,
+[class*="elementor-kit-"] .elementor-section > .elementor-container {
+  max-width: 100% !important;
 }
 
 /* Remove all margins and padding from hero video section */

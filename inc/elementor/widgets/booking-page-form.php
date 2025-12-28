@@ -565,7 +565,8 @@ class Booking_Page_Form extends Widget_Base
                             <div class="tk-booking-detail__highlights">
                                 <?php if (!empty($settings['highlights_title'])): ?>
                                     <h3 class="tk-booking-detail__highlights-title">
-                                        <?php echo esc_html($settings['highlights_title']); ?></h3>
+                                        <?php echo esc_html($settings['highlights_title']); ?>
+                                    </h3>
                                 <?php endif; ?>
 
                                 <?php if (!empty($highlights)): ?>

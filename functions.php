@@ -111,6 +111,54 @@ function trip_kailash_elementor_content_width()
 add_filter('elementor/page_settings/content_width', 'trip_kailash_elementor_content_width');
 
 /**
+ * Force Elementor container to full width via CSS variables
+ */
+function trip_kailash_elementor_full_width_css()
+{
+    // Only on frontend, not in editor - check if Elementor is loaded first
+    if (!class_exists('\Elementor\Plugin') || !\Elementor\Plugin::$instance || !\Elementor\Plugin::$instance->preview->is_preview_mode()) {
+        ?>
+        <style id="tk-elementor-full-width">
+            :root {
+                --e-global-container-width: 100% !important;
+                --e-container-width: 100% !important;
+            }
+
+            /* Override Elementor Pro container width */
+            .e-con {
+                --container-max-width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            /* Override widget container width */
+            .e-con>.e-con-inner {
+                max-width: 100% !important;
+            }
+
+            /* Force sections to be full width */
+            .elementor .elementor-section .elementor-container {
+                max-width: 100% !important;
+            }
+        </style>
+        <?php
+    }
+}
+add_action('wp_head', 'trip_kailash_elementor_full_width_css', 999);
+
+/**
+ * Override Elementor's kit settings for container width
+ */
+function trip_kailash_override_kit_settings($settings)
+{
+    if (isset($settings['container_width'])) {
+        $settings['container_width']['size'] = 100;
+        $settings['container_width']['unit'] = '%';
+    }
+    return $settings;
+}
+add_filter('elementor/kit/get_settings', 'trip_kailash_override_kit_settings');
+
+/**
  * Remove Elementor default page wrapper padding
  */
 function trip_kailash_remove_elementor_padding($settings)
