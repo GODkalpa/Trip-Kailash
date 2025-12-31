@@ -265,7 +265,7 @@ function tk_wrap_semantic_content($content)
         $itemtype = 'LodgingBusiness';
     }
 
-    return '<div class="tk-content-wrapper" itemscope itemtype="https://schema.org/' . $itemtype . '">' . $content . '</div>';
+    return '<div class="tk-content-wrapper">' . $content . '</div>';
 }
 add_filter('the_content', 'tk_wrap_semantic_content', 20);
 
