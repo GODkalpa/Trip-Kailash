@@ -63,7 +63,7 @@ function tk_get_quick_facts($package = null)
         'duration' => $trip_length ?: 'Contact for details',
         'difficulty' => $difficulty ?: 'Moderate',
         'best_months' => is_array($best_months) ? $best_months : array('May', 'June', 'September', 'October'),
-        'price_from' => $price_from ? '₹' . number_format($price_from) : 'Contact for pricing',
+        'price_from' => $price_from ? '$' . number_format($price_from) : 'Contact for pricing',
         'includes' => $includes,
         'key_stops' => is_array($key_stops) ? $key_stops : array(),
         'deity' => $deity,
@@ -459,7 +459,7 @@ function tk_output_related_packages($package = null, $count = 3, $echo = true)
                         <?php endif; ?>
                         <?php if ($price): ?>
                             <span
-                                class="tk-related-packages__price"><?php echo esc_html('From ₹' . number_format($price)); ?></span>
+                                class="tk-related-packages__price"><?php echo esc_html('From $' . number_format($price)); ?></span>
                         <?php endif; ?>
                     </p>
                 </article>

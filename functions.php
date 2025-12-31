@@ -158,22 +158,9 @@ function trip_kailash_override_kit_settings($settings)
 }
 add_filter('elementor/kit/get_settings', 'trip_kailash_override_kit_settings');
 
-/**
- * Remove Elementor default page wrapper padding
- */
-function trip_kailash_remove_elementor_padding($settings)
-{
-    $settings['padding'] = [
-        'unit' => 'px',
-        'top' => 0,
-        'right' => 0,
-        'bottom' => 0,
-        'left' => 0,
-        'isLinked' => true,
-    ];
-    return $settings;
-}
+// Ensure Elementor sections always render
 add_filter('elementor/frontend/section/should_render', '__return_true');
+
 
 /**
  * Add body class for full-width layout and hero detection

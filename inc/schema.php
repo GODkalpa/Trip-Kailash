@@ -16,10 +16,11 @@ if (!defined('ABSPATH')) {
  *
  * @return array Organization schema
  */
-function tk_get_organization_schema() {
+function tk_get_organization_schema()
+{
     $logo_id = get_theme_mod('custom_logo');
     $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
-    
+
     return array(
         '@type' => 'Organization',
         'name' => get_bloginfo('name'),
@@ -50,13 +51,14 @@ function tk_get_organization_schema() {
  *
  * @return array LocalBusiness schema
  */
-function tk_get_local_business_schema() {
+function tk_get_local_business_schema()
+{
     return array(
         '@type' => 'TravelAgency',
         'name' => get_bloginfo('name'),
         'url' => home_url('/'),
         'description' => 'Spiritual pilgrimage travel agency specializing in Kailash Mansarovar, Char Dham, and sacred journeys.',
-        'priceRange' => '₹₹₹',
+        'priceRange' => '$$$',
         'address' => array(
             '@type' => 'PostalAddress',
             'addressCountry' => 'IN',
@@ -81,25 +83,26 @@ function tk_get_local_business_schema() {
  * @param WP_Post $post Package post object
  * @return array TravelAction schema
  */
-function tk_get_travel_action_schema($post) {
+function tk_get_travel_action_schema($post)
+{
     $trip_length = get_post_meta($post->ID, 'trip_length', true);
     $price_from = get_post_meta($post->ID, 'price_from', true);
     $key_stops = get_post_meta($post->ID, 'key_stops', true);
     $difficulty = get_post_meta($post->ID, 'difficulty', true);
-    
+
     // Parse duration to ISO 8601 format
     $duration = 'P7D'; // Default 7 days
     if ($trip_length && preg_match('/(\d+)\s*nights?/i', $trip_length, $matches)) {
         $days = intval($matches[1]) + 1;
         $duration = 'P' . $days . 'D';
     }
-    
+
     // Get destination from key stops
     $destination = 'Kailash Mansarovar';
     if (is_array($key_stops) && !empty($key_stops)) {
         $destination = end($key_stops);
     }
-    
+
     return array(
         '@type' => 'TravelAction',
         'name' => $post->post_title,
@@ -125,10 +128,11 @@ function tk_get_travel_action_schema($post) {
  * @param WP_Post $post Package post object
  * @return array Product schema
  */
-function tk_get_product_schema($post) {
+function tk_get_product_schema($post)
+{
     $price_from = get_post_meta($post->ID, 'price_from', true);
     $trip_length = get_post_meta($post->ID, 'trip_length', true);
-    
+
     return array(
         '@type' => 'Product',
         'name' => $post->post_title,
@@ -142,7 +146,7 @@ function tk_get_product_schema($post) {
         'offers' => array(
             '@type' => 'Offer',
             'price' => $price_from ?: '85000',
-            'priceCurrency' => 'INR',
+            'priceCurrency' => 'USD',
             'availability' => 'https://schema.org/InStock',
             'validFrom' => date('Y-m-d'),
             'priceValidUntil' => date('Y-12-31'),
@@ -162,10 +166,11 @@ function tk_get_product_schema($post) {
  * @param WP_Post $post Guide post object
  * @return array Person schema
  */
-function tk_get_person_schema($post) {
+function tk_get_person_schema($post)
+{
     $years = get_post_meta($post->ID, 'years_of_experience', true);
     $bio = get_post_meta($post->ID, 'short_bio', true);
-    
+
     return array(
         '@type' => 'Person',
         'name' => $post->post_title,
@@ -186,10 +191,11 @@ function tk_get_person_schema($post) {
  * @param WP_Post $post Lodge post object
  * @return array LodgingBusiness schema
  */
-function tk_get_lodging_schema($post) {
+function tk_get_lodging_schema($post)
+{
     $location = get_post_meta($post->ID, 'location', true);
     $amenities = get_post_meta($post->ID, 'amenities', true);
-    
+
     $schema = array(
         '@type' => 'LodgingBusiness',
         'name' => $post->post_title,
@@ -202,9 +208,9 @@ function tk_get_lodging_schema($post) {
             'addressCountry' => 'NP',
         ),
     );
-    
+
     if (is_array($amenities) && !empty($amenities)) {
-        $schema['amenityFeature'] = array_map(function($amenity) {
+        $schema['amenityFeature'] = array_map(function ($amenity) {
             return array(
                 '@type' => 'LocationFeatureSpecification',
                 'name' => $amenity,
@@ -212,7 +218,7 @@ function tk_get_lodging_schema($post) {
             );
         }, $amenities);
     }
-    
+
     return $schema;
 }
 
@@ -223,13 +229,14 @@ function tk_get_lodging_schema($post) {
  * @param array $faqs Array of FAQ items with 'question' and 'answer' keys
  * @return array FAQPage schema
  */
-function tk_get_faq_schema($faqs) {
+function tk_get_faq_schema($faqs)
+{
     if (empty($faqs) || !is_array($faqs)) {
         return array();
     }
-    
+
     $main_entity = array();
-    
+
     foreach ($faqs as $faq) {
         if (!empty($faq['question']) && !empty($faq['answer'])) {
             $main_entity[] = array(
@@ -242,11 +249,11 @@ function tk_get_faq_schema($faqs) {
             );
         }
     }
-    
+
     if (empty($main_entity)) {
         return array();
     }
-    
+
     return array(
         '@type' => 'FAQPage',
         'mainEntity' => $main_entity,
@@ -258,10 +265,11 @@ function tk_get_faq_schema($faqs) {
  *
  * @return array BreadcrumbList schema
  */
-function tk_get_breadcrumb_schema() {
+function tk_get_breadcrumb_schema()
+{
     $breadcrumbs = array();
     $position = 1;
-    
+
     // Home
     $breadcrumbs[] = array(
         '@type' => 'ListItem',
@@ -269,11 +277,11 @@ function tk_get_breadcrumb_schema() {
         'name' => 'Home',
         'item' => home_url('/'),
     );
-    
+
     if (is_singular('pilgrimage_package')) {
         $post = get_post();
         $deity_terms = get_the_terms($post->ID, 'deity');
-        
+
         // Deity archive
         if ($deity_terms && !is_wp_error($deity_terms)) {
             $deity = $deity_terms[0];
@@ -284,7 +292,7 @@ function tk_get_breadcrumb_schema() {
                 'item' => get_term_link($deity),
             );
         }
-        
+
         // Current package
         $breadcrumbs[] = array(
             '@type' => 'ListItem',
@@ -327,7 +335,7 @@ function tk_get_breadcrumb_schema() {
             'item' => get_term_link($term),
         );
     }
-    
+
     return array(
         '@type' => 'BreadcrumbList',
         'itemListElement' => $breadcrumbs,
@@ -339,9 +347,10 @@ function tk_get_breadcrumb_schema() {
  *
  * @return array WebPage schema
  */
-function tk_get_webpage_schema() {
+function tk_get_webpage_schema()
+{
     $post = get_post();
-    
+
     return array(
         '@type' => 'WebPage',
         'name' => tk_generate_meta_title($post),
@@ -363,32 +372,33 @@ function tk_get_webpage_schema() {
  *
  * @return array Complete schema array
  */
-function tk_build_page_schema() {
+function tk_build_page_schema()
+{
     $schema = array(
         '@context' => 'https://schema.org',
         '@graph' => array(),
     );
-    
+
     // Always include Organization
     $schema['@graph'][] = tk_get_organization_schema();
-    
+
     // Always include WebPage
     $schema['@graph'][] = tk_get_webpage_schema();
-    
+
     // Always include Breadcrumbs
     $schema['@graph'][] = tk_get_breadcrumb_schema();
-    
+
     // Homepage specific
     if (is_front_page() || is_home()) {
         $schema['@graph'][] = tk_get_local_business_schema();
     }
-    
+
     // Package specific
     if (is_singular('pilgrimage_package')) {
         $post = get_post();
         $schema['@graph'][] = tk_get_travel_action_schema($post);
         $schema['@graph'][] = tk_get_product_schema($post);
-        
+
         // Check for FAQ content in post meta
         $faqs = get_post_meta($post->ID, 'faqs', true);
         if (!empty($faqs)) {
@@ -398,26 +408,27 @@ function tk_build_page_schema() {
             }
         }
     }
-    
+
     // Guide specific
     if (is_singular('guide')) {
         $schema['@graph'][] = tk_get_person_schema(get_post());
     }
-    
+
     // Lodge specific
     if (is_singular('lodge')) {
         $schema['@graph'][] = tk_get_lodging_schema(get_post());
     }
-    
+
     return $schema;
 }
 
 /**
  * Output JSON-LD schema in footer
  */
-function tk_output_schema_json_ld() {
+function tk_output_schema_json_ld()
+{
     $schema = tk_build_page_schema();
-    
+
     if (!empty($schema['@graph'])) {
         echo '<script type="application/ld+json">' . "\n";
         echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -431,13 +442,14 @@ add_action('wp_footer', 'tk_output_schema_json_ld', 100);
  *
  * @param array $faqs FAQ array from widget
  */
-function tk_register_page_faqs($faqs) {
+function tk_register_page_faqs($faqs)
+{
     global $tk_page_faqs;
-    
+
     if (!isset($tk_page_faqs)) {
         $tk_page_faqs = array();
     }
-    
+
     if (is_array($faqs)) {
         $tk_page_faqs = array_merge($tk_page_faqs, $faqs);
     }
@@ -448,7 +460,8 @@ function tk_register_page_faqs($faqs) {
  *
  * @return array FAQs
  */
-function tk_get_page_faqs() {
+function tk_get_page_faqs()
+{
     global $tk_page_faqs;
     return $tk_page_faqs ?: array();
 }

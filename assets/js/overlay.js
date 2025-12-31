@@ -94,7 +94,7 @@
                 <div class="tk-overlay__icons">${icons}</div>
                 ${meta.difficulty ? `<p class="tk-overlay__difficulty"><strong>Difficulty:</strong> ${meta.difficulty}</p>` : ''}
                 ${meta.best_months ? `<p class="tk-overlay__best-months"><strong>Best Time:</strong> ${meta.best_months}</p>` : ''}
-                ${meta.price_from ? `<p class="tk-overlay__price"><strong>Starting from:</strong> ₹${meta.price_from.toLocaleString()}</p>` : ''}
+                ${meta.price_from ? `<p class="tk-overlay__price"><strong>Starting from:</strong> $${meta.price_from.toLocaleString()}</p>` : ''}
                 ${keyStops}
                 <div class="tk-overlay__content">${packageData.content}</div>
             </div>
