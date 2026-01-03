@@ -12,6 +12,12 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Disable WordPress core sitemaps (we use our own custom sitemaps)
+ * This prevents empty/default sitemaps like wp-sitemap-posts-post-1.xml
+ */
+add_filter('wp_sitemaps_enabled', '__return_false');
+
+/**
  * Register sitemap rewrite rules
  */
 function tk_sitemap_rewrite_rules()

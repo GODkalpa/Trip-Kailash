@@ -103,12 +103,18 @@ function tk_get_travel_action_schema($post)
         $destination = end($key_stops);
     }
 
+    // Get image URL with fallback to default
+    $image_url = get_the_post_thumbnail_url($post, 'large');
+    if (!$image_url) {
+        $image_url = TRIP_KAILASH_URI . '/assets/images/og_default.jpg';
+    }
+
     return array(
         '@type' => 'TravelAction',
         'name' => $post->post_title,
         'description' => tk_generate_meta_description($post),
         'url' => get_permalink($post),
-        'image' => get_the_post_thumbnail_url($post, 'large'),
+        'image' => $image_url,
         'toLocation' => array(
             '@type' => 'Place',
             'name' => $destination,
@@ -132,13 +138,19 @@ function tk_get_product_schema($post)
 {
     $price_from = get_post_meta($post->ID, 'price_from', true);
     $trip_length = get_post_meta($post->ID, 'trip_length', true);
+    
+    // Get image URL with fallback to default
+    $image_url = get_the_post_thumbnail_url($post, 'large');
+    if (!$image_url) {
+        $image_url = TRIP_KAILASH_URI . '/assets/images/og_default.jpg';
+    }
 
     return array(
         '@type' => 'Product',
         'name' => $post->post_title,
         'description' => tk_generate_meta_description($post),
         'url' => get_permalink($post),
-        'image' => get_the_post_thumbnail_url($post, 'large'),
+        'image' => $image_url,
         'brand' => array(
             '@type' => 'Brand',
             'name' => get_bloginfo('name'),
@@ -170,13 +182,19 @@ function tk_get_person_schema($post)
 {
     $years = get_post_meta($post->ID, 'years_of_experience', true);
     $bio = get_post_meta($post->ID, 'short_bio', true);
+    
+    // Get image URL with fallback
+    $image_url = get_the_post_thumbnail_url($post, 'medium');
+    if (!$image_url) {
+        $image_url = TRIP_KAILASH_URI . '/assets/images/og_default.jpg';
+    }
 
     return array(
         '@type' => 'Person',
         'name' => $post->post_title,
         'jobTitle' => 'Pilgrimage Guide',
         'description' => $bio ?: wp_trim_words($post->post_content, 30),
-        'image' => get_the_post_thumbnail_url($post, 'medium'),
+        'image' => $image_url,
         'url' => get_permalink($post),
         'worksFor' => array(
             '@type' => 'Organization',
@@ -195,12 +213,18 @@ function tk_get_lodging_schema($post)
 {
     $location = get_post_meta($post->ID, 'location', true);
     $amenities = get_post_meta($post->ID, 'amenities', true);
+    
+    // Get image URL with fallback
+    $image_url = get_the_post_thumbnail_url($post, 'large');
+    if (!$image_url) {
+        $image_url = TRIP_KAILASH_URI . '/assets/images/og_default.jpg';
+    }
 
     $schema = array(
         '@type' => 'LodgingBusiness',
         'name' => $post->post_title,
         'description' => wp_trim_words($post->post_content, 30),
-        'image' => get_the_post_thumbnail_url($post, 'large'),
+        'image' => $image_url,
         'url' => get_permalink($post),
         'address' => array(
             '@type' => 'PostalAddress',
