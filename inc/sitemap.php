@@ -85,6 +85,34 @@ function tk_sitemap_template_redirect()
 add_action('template_redirect', 'tk_sitemap_template_redirect');
 
 /**
+ * Check if a post type has published posts
+ *
+ * @param string $post_type Post type to check
+ * @return bool True if has published posts
+ */
+function tk_has_published_posts($post_type)
+{
+    $count = wp_count_posts($post_type);
+    return isset($count->publish) && $count->publish > 0;
+}
+
+/**
+ * Check if a taxonomy has terms
+ *
+ * @param string $taxonomy Taxonomy to check
+ * @return bool True if has terms
+ */
+function tk_has_taxonomy_terms($taxonomy)
+{
+    $terms = get_terms(array(
+        'taxonomy' => $taxonomy,
+        'hide_empty' => false,
+        'number' => 1,
+    ));
+    return !is_wp_error($terms) && !empty($terms);
+}
+
+/**
  * Output sitemap index
  */
 function tk_output_sitemap_index()
@@ -92,30 +120,43 @@ function tk_output_sitemap_index()
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
+    // Pages sitemap (always include - we at least have homepage)
     $xml .= '<sitemap>' . "\n";
     $xml .= '<loc>' . esc_url(home_url('/sitemap-pages.xml')) . '</loc>' . "\n";
     $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('page')) . '</lastmod>' . "\n";
     $xml .= '</sitemap>' . "\n";
 
-    $xml .= '<sitemap>' . "\n";
-    $xml .= '<loc>' . esc_url(home_url('/sitemap-packages.xml')) . '</loc>' . "\n";
-    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('pilgrimage_package')) . '</lastmod>' . "\n";
-    $xml .= '</sitemap>' . "\n";
+    // Packages sitemap (only if has published packages)
+    if (tk_has_published_posts('pilgrimage_package')) {
+        $xml .= '<sitemap>' . "\n";
+        $xml .= '<loc>' . esc_url(home_url('/sitemap-packages.xml')) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('pilgrimage_package')) . '</lastmod>' . "\n";
+        $xml .= '</sitemap>' . "\n";
+    }
 
-    $xml .= '<sitemap>' . "\n";
-    $xml .= '<loc>' . esc_url(home_url('/sitemap-guides.xml')) . '</loc>' . "\n";
-    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('guide')) . '</lastmod>' . "\n";
-    $xml .= '</sitemap>' . "\n";
+    // Guides sitemap (only if has published guides)
+    if (tk_has_published_posts('guide')) {
+        $xml .= '<sitemap>' . "\n";
+        $xml .= '<loc>' . esc_url(home_url('/sitemap-guides.xml')) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('guide')) . '</lastmod>' . "\n";
+        $xml .= '</sitemap>' . "\n";
+    }
 
-    $xml .= '<sitemap>' . "\n";
-    $xml .= '<loc>' . esc_url(home_url('/sitemap-lodges.xml')) . '</loc>' . "\n";
-    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('lodge')) . '</lastmod>' . "\n";
-    $xml .= '</sitemap>' . "\n";
+    // Lodges sitemap (only if has published lodges)
+    if (tk_has_published_posts('lodge')) {
+        $xml .= '<sitemap>' . "\n";
+        $xml .= '<loc>' . esc_url(home_url('/sitemap-lodges.xml')) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('lodge')) . '</lastmod>' . "\n";
+        $xml .= '</sitemap>' . "\n";
+    }
 
-    $xml .= '<sitemap>' . "\n";
-    $xml .= '<loc>' . esc_url(home_url('/sitemap-deities.xml')) . '</loc>' . "\n";
-    $xml .= '<lastmod>' . esc_html(date('c')) . '</lastmod>' . "\n";
-    $xml .= '</sitemap>' . "\n";
+    // Deities sitemap (only if has deity terms)
+    if (tk_has_taxonomy_terms('deity')) {
+        $xml .= '<sitemap>' . "\n";
+        $xml .= '<loc>' . esc_url(home_url('/sitemap-deities.xml')) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(date('c')) . '</lastmod>' . "\n";
+        $xml .= '</sitemap>' . "\n";
+    }
 
     $xml .= '</sitemapindex>';
 
