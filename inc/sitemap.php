@@ -89,31 +89,37 @@ add_action('template_redirect', 'tk_sitemap_template_redirect');
  */
 function tk_output_sitemap_index()
 {
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <sitemap>
-            <loc><?php echo esc_url(home_url('/sitemap-pages.xml')); ?></loc>
-            <lastmod><?php echo esc_html(tk_get_latest_post_date('page')); ?></lastmod>
-        </sitemap>
-        <sitemap>
-            <loc><?php echo esc_url(home_url('/sitemap-packages.xml')); ?></loc>
-            <lastmod><?php echo esc_html(tk_get_latest_post_date('pilgrimage_package')); ?></lastmod>
-        </sitemap>
-        <sitemap>
-            <loc><?php echo esc_url(home_url('/sitemap-guides.xml')); ?></loc>
-            <lastmod><?php echo esc_html(tk_get_latest_post_date('guide')); ?></lastmod>
-        </sitemap>
-        <sitemap>
-            <loc><?php echo esc_url(home_url('/sitemap-lodges.xml')); ?></loc>
-            <lastmod><?php echo esc_html(tk_get_latest_post_date('lodge')); ?></lastmod>
-        </sitemap>
-        <sitemap>
-            <loc><?php echo esc_url(home_url('/sitemap-deities.xml')); ?></loc>
-            <lastmod><?php echo esc_html(date('c')); ?></lastmod>
-        </sitemap>
-    </sitemapindex>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    $xml .= '<sitemap>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/sitemap-pages.xml')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('page')) . '</lastmod>' . "\n";
+    $xml .= '</sitemap>' . "\n";
+
+    $xml .= '<sitemap>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/sitemap-packages.xml')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('pilgrimage_package')) . '</lastmod>' . "\n";
+    $xml .= '</sitemap>' . "\n";
+
+    $xml .= '<sitemap>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/sitemap-guides.xml')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('guide')) . '</lastmod>' . "\n";
+    $xml .= '</sitemap>' . "\n";
+
+    $xml .= '<sitemap>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/sitemap-lodges.xml')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(tk_get_latest_post_date('lodge')) . '</lastmod>' . "\n";
+    $xml .= '</sitemap>' . "\n";
+
+    $xml .= '<sitemap>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/sitemap-deities.xml')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(date('c')) . '</lastmod>' . "\n";
+    $xml .= '</sitemap>' . "\n";
+
+    $xml .= '</sitemapindex>';
+
+    echo $xml;
 }
 
 /**
@@ -129,25 +135,30 @@ function tk_output_pages_sitemap()
         'order' => 'DESC',
     ));
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <url>
-            <loc><?php echo esc_url(home_url('/')); ?></loc>
-            <lastmod><?php echo esc_html(date('c')); ?></lastmod>
-            <changefreq>daily</changefreq>
-            <priority>1.0</priority>
-        </url>
-        <?php foreach ($pages as $page): ?>
-            <url>
-                <loc><?php echo esc_url(get_permalink($page)); ?></loc>
-                <lastmod><?php echo esc_html(get_the_modified_date('c', $page)); ?></lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.8</priority>
-            </url>
-        <?php endforeach; ?>
-    </urlset>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    // Homepage
+    $xml .= '<url>' . "\n";
+    $xml .= '<loc>' . esc_url(home_url('/')) . '</loc>' . "\n";
+    $xml .= '<lastmod>' . esc_html(date('c')) . '</lastmod>' . "\n";
+    $xml .= '<changefreq>daily</changefreq>' . "\n";
+    $xml .= '<priority>1.0</priority>' . "\n";
+    $xml .= '</url>' . "\n";
+
+    // Pages
+    foreach ($pages as $page) {
+        $xml .= '<url>' . "\n";
+        $xml .= '<loc>' . esc_url(get_permalink($page)) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(get_the_modified_date('c', $page)) . '</lastmod>' . "\n";
+        $xml .= '<changefreq>weekly</changefreq>' . "\n";
+        $xml .= '<priority>0.8</priority>' . "\n";
+        $xml .= '</url>' . "\n";
+    }
+
+    $xml .= '</urlset>';
+
+    echo $xml;
 }
 
 /**
@@ -163,26 +174,29 @@ function tk_output_packages_sitemap()
         'order' => 'DESC',
     ));
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-        <?php foreach ($packages as $package): ?>
-            <url>
-                <loc><?php echo esc_url(get_permalink($package)); ?></loc>
-                <lastmod><?php echo esc_html(get_the_modified_date('c', $package)); ?></lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.9</priority>
-                <?php if (has_post_thumbnail($package)): ?>
-                    <image:image>
-                        <image:loc><?php echo esc_url(get_the_post_thumbnail_url($package, 'large')); ?></image:loc>
-                        <image:title><?php echo esc_html($package->post_title); ?></image:title>
-                    </image:image>
-                <?php endif; ?>
-            </url>
-        <?php endforeach; ?>
-    </urlset>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+
+    foreach ($packages as $package) {
+        $xml .= '<url>' . "\n";
+        $xml .= '<loc>' . esc_url(get_permalink($package)) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(get_the_modified_date('c', $package)) . '</lastmod>' . "\n";
+        $xml .= '<changefreq>weekly</changefreq>' . "\n";
+        $xml .= '<priority>0.9</priority>' . "\n";
+
+        if (has_post_thumbnail($package)) {
+            $xml .= '<image:image>' . "\n";
+            $xml .= '<image:loc>' . esc_url(get_the_post_thumbnail_url($package, 'large')) . '</image:loc>' . "\n";
+            $xml .= '<image:title>' . esc_html($package->post_title) . '</image:title>' . "\n";
+            $xml .= '</image:image>' . "\n";
+        }
+
+        $xml .= '</url>' . "\n";
+    }
+
+    $xml .= '</urlset>';
+
+    echo $xml;
 }
 
 /**
@@ -198,19 +212,21 @@ function tk_output_guides_sitemap()
         'order' => 'DESC',
     ));
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <?php foreach ($guides as $guide): ?>
-            <url>
-                <loc><?php echo esc_url(get_permalink($guide)); ?></loc>
-                <lastmod><?php echo esc_html(get_the_modified_date('c', $guide)); ?></lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.6</priority>
-            </url>
-        <?php endforeach; ?>
-    </urlset>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    foreach ($guides as $guide) {
+        $xml .= '<url>' . "\n";
+        $xml .= '<loc>' . esc_url(get_permalink($guide)) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(get_the_modified_date('c', $guide)) . '</lastmod>' . "\n";
+        $xml .= '<changefreq>monthly</changefreq>' . "\n";
+        $xml .= '<priority>0.6</priority>' . "\n";
+        $xml .= '</url>' . "\n";
+    }
+
+    $xml .= '</urlset>';
+
+    echo $xml;
 }
 
 /**
@@ -226,19 +242,21 @@ function tk_output_lodges_sitemap()
         'order' => 'DESC',
     ));
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <?php foreach ($lodges as $lodge): ?>
-            <url>
-                <loc><?php echo esc_url(get_permalink($lodge)); ?></loc>
-                <lastmod><?php echo esc_html(get_the_modified_date('c', $lodge)); ?></lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.6</priority>
-            </url>
-        <?php endforeach; ?>
-    </urlset>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    foreach ($lodges as $lodge) {
+        $xml .= '<url>' . "\n";
+        $xml .= '<loc>' . esc_url(get_permalink($lodge)) . '</loc>' . "\n";
+        $xml .= '<lastmod>' . esc_html(get_the_modified_date('c', $lodge)) . '</lastmod>' . "\n";
+        $xml .= '<changefreq>monthly</changefreq>' . "\n";
+        $xml .= '<priority>0.6</priority>' . "\n";
+        $xml .= '</url>' . "\n";
+    }
+
+    $xml .= '</urlset>';
+
+    echo $xml;
 }
 
 /**
@@ -251,18 +269,25 @@ function tk_output_deities_sitemap()
         'hide_empty' => false,
     ));
 
-    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    ?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <?php foreach ($deities as $deity): ?>
-            <url>
-                <loc><?php echo esc_url(get_term_link($deity)); ?></loc>
-                <changefreq>weekly</changefreq>
-                <priority>0.8</priority>
-            </url>
-        <?php endforeach; ?>
-    </urlset>
-    <?php
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    if (!is_wp_error($deities)) {
+        foreach ($deities as $deity) {
+            $term_link = get_term_link($deity);
+            if (!is_wp_error($term_link)) {
+                $xml .= '<url>' . "\n";
+                $xml .= '<loc>' . esc_url($term_link) . '</loc>' . "\n";
+                $xml .= '<changefreq>weekly</changefreq>' . "\n";
+                $xml .= '<priority>0.8</priority>' . "\n";
+                $xml .= '</url>' . "\n";
+            }
+        }
+    }
+
+    $xml .= '</urlset>';
+
+    echo $xml;
 }
 
 /**
