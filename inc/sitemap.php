@@ -54,7 +54,8 @@ function tk_sitemap_template_redirect()
 
     // Set XML content type
     header('Content-Type: application/xml; charset=UTF-8');
-    header('X-Robots-Tag: noindex, follow');
+    // Note: Sitemaps don't need indexing themselves - they're for search engines to discover your content
+    // Removed X-Robots-Tag: noindex to avoid GSC warnings when inspecting sitemap URLs
 
     switch ($sitemap_type) {
         case 'index':
