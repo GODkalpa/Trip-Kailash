@@ -86,9 +86,13 @@ function tk_generate_meta_description($post = null)
 
     // Package-specific description
     if ($post->post_type === 'pilgrimage_package') {
-        $trip_length = get_post_meta($post->ID, 'trip_length', true);
-        $difficulty = get_post_meta($post->ID, 'difficulty', true);
-        $price_from = get_post_meta($post->ID, 'price_from', true);
+        $pkg_info = function_exists('tk_get_package_info') ? tk_get_package_info() : array();
+
+        $trip_length = !empty($pkg_info['duration']) ? $pkg_info['duration'] : get_post_meta($post->ID, 'trip_length', true);
+        $difficulty = !empty($pkg_info['grading']) ? $pkg_info['grading'] : get_post_meta($post->ID, 'difficulty', true);
+        // Price might be "Starting from $X" in widget, or int in meta. 
+        // We'll trust meta for price unless widget provides clean int, but for description text widget is fine.
+        $price_from = !empty($pkg_info['price_from']) ? $pkg_info['price_from'] : get_post_meta($post->ID, 'price_from', true);
 
         $description = 'Experience ' . $post->post_title;
 

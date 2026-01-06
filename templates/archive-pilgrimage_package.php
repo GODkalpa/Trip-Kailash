@@ -10,14 +10,15 @@ get_header();
     <div class="tk-container">
         <header class="tk-archive-header">
             <h1 class="tk-archive-title"><?php post_type_archive_title(); ?></h1>
-            <?php if (term_description()): ?>
-                <div class="tk-archive-description"><?php echo term_description(); ?></div>
+            <?php if (get_the_archive_description()): ?>
+                <div class="tk-archive-description"><?php the_archive_description(); ?></div>
             <?php endif; ?>
         </header>
 
         <?php if (have_posts()): ?>
             <div class="tk-packages-grid tk-grid-3">
-                <?php while (have_posts()): the_post(); ?>
+                <?php while (have_posts()):
+                    the_post(); ?>
                     <?php get_template_part('template-parts/content', 'package-card'); ?>
                 <?php endwhile; ?>
             </div>

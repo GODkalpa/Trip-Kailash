@@ -113,6 +113,11 @@ class Pilgrimage_FAQ extends Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
+
+        // Register FAQs for Schema
+        if (function_exists('tk_register_page_faqs') && !empty($settings['faqs'])) {
+            tk_register_page_faqs($settings['faqs']);
+        }
         ?>
         <section class="tk-pilgrimage-faq">
             <div class="tk-container">

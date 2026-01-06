@@ -134,6 +134,17 @@ class Pilgrimage_Inclusions extends Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
+
+        // Register package info for Schema
+        if (function_exists('tk_register_package_info') && !empty($settings['inclusions'])) {
+            $inclusions_list = [];
+            foreach ($settings['inclusions'] as $item) {
+                $inclusions_list[] = $item['item_text'];
+            }
+            tk_register_package_info([
+                'inclusions' => $inclusions_list,
+            ]);
+        }
         ?>
         <section class="tk-pilgrimage-inclusions">
             <div class="tk-container">

@@ -137,6 +137,21 @@ class Pilgrimage_Info_Grid extends Widget_Base
     {
         $settings = $this->get_settings_for_display();
 
+        // Register package info for Schema
+        if (function_exists('tk_register_package_info')) {
+            tk_register_package_info([
+                'destination' => $settings['destination'],
+                'duration' => $settings['duration'],
+                'max_altitude' => $settings['max_altitude'],
+                'grading' => $settings['grading'],
+                'group_size' => $settings['group_size'],
+                'accommodation' => $settings['accommodation'],
+                'transportation' => $settings['transportation'],
+                'meals' => $settings['meals'],
+                'best_time' => $settings['best_time'],
+            ]);
+        }
+
         $info_items = [
             [
                 'icon' => 'destination',

@@ -304,3 +304,17 @@ function tk_remove_query_strings($src)
 }
 add_filter('style_loader_src', 'tk_remove_query_strings', 10);
 add_filter('script_loader_src', 'tk_remove_query_strings', 10);
+
+/**
+ * Force swap for Google Fonts to prevent FOIT
+ */
+function tk_optimize_google_fonts($src, $handle)
+{
+    if (strpos($src, 'fonts.googleapis.com') !== false) {
+        if (strpos($src, 'display=swap') === false) {
+            $src = add_query_arg('display', 'swap', $src);
+        }
+    }
+    return $src;
+}
+add_filter('style_loader_src', 'tk_optimize_google_fonts', 10, 2);

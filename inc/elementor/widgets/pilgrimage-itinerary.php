@@ -117,6 +117,21 @@ class Pilgrimage_Itinerary extends Widget_Base
         $settings = $this->get_settings_for_display();
         $total_days = count($settings['days']);
         $show_more_button = $total_days > 5;
+
+        // Register package info for Schema
+        if (function_exists('tk_register_package_info') && !empty($settings['days'])) {
+            $itinerary_data = [];
+            foreach ($settings['days'] as $day) {
+                $itinerary_data[] = [
+                    'day' => $day['day_number'],
+                    'title' => $day['day_title'],
+                    'description' => $day['day_description'],
+                ];
+            }
+            tk_register_package_info([
+                'itinerary' => $itinerary_data,
+            ]);
+        }
         ?>
         <section class="tk-pilgrimage-itinerary">
             <div class="tk-container">

@@ -435,8 +435,6 @@ function tk_robots_txt($output, $public)
     $robots .= "Disallow: /comments/\n";
     $robots .= "Disallow: /?s=\n";
     $robots .= "Disallow: /search/\n";
-    $robots .= "Disallow: /*?*\n";
-    $robots .= "Disallow: /*.php$\n";
 
     // Crawl delay for politeness
     $robots .= "\nCrawl-delay: 1\n";

@@ -136,9 +136,29 @@ function tk_get_travel_action_schema($post)
  */
 function tk_get_product_schema($post)
 {
-    $price_from = get_post_meta($post->ID, 'price_from', true);
-    $trip_length = get_post_meta($post->ID, 'trip_length', true);
-    
+    $pkg_info = function_exists('tk_get_package_info') ? tk_get_package_info() : array();
+
+    $price_from = !empty($pkg_info['price_from']) ? $pkg_info['price_from'] : get_post_meta($post->ID, 'price_from', true);
+    $trip_length = !empty($pkg_info['duration']) ? $pkg_info['duration'] : get_post_meta($post->ID, 'trip_length', true);
+
+    // Build extended description for Schema (richer than meta tag)
+    $description = tk_generate_meta_description($post);
+
+    // Append Inclusions
+    if (!empty($pkg_info['inclusions']) && is_array($pkg_info['inclusions'])) {
+        $inclusions_str = implode(', ', array_slice($pkg_info['inclusions'], 0, 5));
+        $description .= ' Includes: ' . $inclusions_str . '.';
+    }
+
+    // Append Itinerary Highlights
+    if (!empty($pkg_info['itinerary']) && is_array($pkg_info['itinerary'])) {
+        $highlights = [];
+        foreach (array_slice($pkg_info['itinerary'], 0, 3) as $day) {
+            $highlights[] = $day['title'];
+        }
+        $description .= ' Highlights: ' . implode(', ', $highlights) . '.';
+    }
+
     // Get image URL with fallback to default
     $image_url = get_the_post_thumbnail_url($post, 'large');
     if (!$image_url) {
@@ -148,7 +168,7 @@ function tk_get_product_schema($post)
     return array(
         '@type' => 'Product',
         'name' => $post->post_title,
-        'description' => tk_generate_meta_description($post),
+        'description' => $description,
         'url' => get_permalink($post),
         'image' => $image_url,
         'brand' => array(
@@ -182,7 +202,7 @@ function tk_get_person_schema($post)
 {
     $years = get_post_meta($post->ID, 'years_of_experience', true);
     $bio = get_post_meta($post->ID, 'short_bio', true);
-    
+
     // Get image URL with fallback
     $image_url = get_the_post_thumbnail_url($post, 'medium');
     if (!$image_url) {
@@ -213,7 +233,7 @@ function tk_get_lodging_schema($post)
 {
     $location = get_post_meta($post->ID, 'location', true);
     $amenities = get_post_meta($post->ID, 'amenities', true);
-    
+
     // Get image URL with fallback
     $image_url = get_the_post_thumbnail_url($post, 'large');
     if (!$image_url) {
@@ -423,10 +443,17 @@ function tk_build_page_schema()
         $schema['@graph'][] = tk_get_travel_action_schema($post);
         $schema['@graph'][] = tk_get_product_schema($post);
 
-        // Check for FAQ content in post meta
-        $faqs = get_post_meta($post->ID, 'faqs', true);
-        if (!empty($faqs)) {
-            $faq_schema = tk_get_faq_schema($faqs);
+        // Check for FAQ content in post meta AND registered page FAQs
+        $meta_faqs = get_post_meta($post->ID, 'faqs', true);
+        if (!is_array($meta_faqs)) {
+            $meta_faqs = array();
+        }
+
+        $page_faqs = tk_get_page_faqs();
+        $all_faqs = array_merge($meta_faqs, $page_faqs);
+
+        if (!empty($all_faqs)) {
+            $faq_schema = tk_get_faq_schema($all_faqs);
             if (!empty($faq_schema)) {
                 $schema['@graph'][] = $faq_schema;
             }
@@ -488,4 +515,29 @@ function tk_get_page_faqs()
 {
     global $tk_page_faqs;
     return $tk_page_faqs ?: array();
+}
+
+/**
+ * Helper function to add package info from Elementor widget
+ *
+ * @param array $info Package info array
+ */
+function tk_register_package_info($info)
+{
+    global $tk_package_info;
+    if (!is_array($tk_package_info)) {
+        $tk_package_info = array();
+    }
+    $tk_package_info = array_merge($tk_package_info, $info);
+}
+
+/**
+ * Get registered package info
+ *
+ * @return array Package info
+ */
+function tk_get_package_info()
+{
+    global $tk_package_info;
+    return $tk_package_info ?: array();
 }
