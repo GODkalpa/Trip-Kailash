@@ -12,6 +12,46 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Enforce canonical domain (non-www)
+ * Handles redirection at the theme level since .htaccess is not in git
+ */
+function tk_enforce_canonical_domain()
+{
+    // Skip for admin dashboard, standard WP cron, or XML-RPC
+    if (is_admin() || defined('DOING_CRON') || defined('XMLRPC_REQUEST')) {
+        return;
+    }
+
+    $site_url = get_home_url();
+    $parsed_url = parse_url($site_url);
+    $target_host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+
+    // If we couldn't parse the host, bail
+    if (empty($target_host)) {
+        return;
+    }
+
+    $current_host = $_SERVER['HTTP_HOST'];
+
+    // Check if current host differs from site setting (e.g. www vs non-www)
+    if ($current_host !== $target_host) {
+        $protocol = is_ssl() ? 'https://' : 'http://';
+        $request_uri = $_SERVER['REQUEST_URI'];
+
+        // Validate that we are strictly redirecting www -> non-www or vice versa
+        // to prevent redirect loops in misconfigured environments
+        $is_www_current = (strpos($current_host, 'www.') === 0);
+        $is_www_target = (strpos($target_host, 'www.') === 0);
+
+        if ($is_www_current !== $is_www_target) {
+            wp_redirect($protocol . $target_host . $request_uri, 301);
+            exit;
+        }
+    }
+}
+add_action('template_redirect', 'tk_enforce_canonical_domain', 1);
+
+/**
  * Generate optimized meta title (50-60 characters)
  *
  * @param WP_Post|null $post Post object
