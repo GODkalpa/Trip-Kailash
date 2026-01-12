@@ -12,6 +12,23 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Block malware requests (saiga.php) with 410 Gone
+ * This tells Google to de-index these pages immediately
+ */
+function tk_block_malware_requests()
+{
+    $request_uri = $_SERVER['REQUEST_URI'];
+
+    if (strpos($request_uri, 'saiga.php') !== false) {
+        status_header(410);
+        nocache_headers();
+        echo '410 Content Deleted';
+        exit;
+    }
+}
+add_action('init', 'tk_block_malware_requests');
+
+/**
  * Enforce canonical domain (non-www)
  * Handles redirection at the theme level since .htaccess is not in git
  */
@@ -24,29 +41,25 @@ function tk_enforce_canonical_domain()
 
     $site_url = get_home_url();
     $parsed_url = parse_url($site_url);
-    $target_host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
 
-    // If we couldn't parse the host, bail
-    if (empty($target_host)) {
+    // Safety checks
+    if (!isset($parsed_url['host']) || !isset($parsed_url['scheme'])) {
         return;
     }
 
-    $current_host = $_SERVER['HTTP_HOST'];
+    $target_host = $parsed_url['host'];
+    $target_scheme = $parsed_url['scheme']; // http or https
 
-    // Check if current host differs from site setting (e.g. www vs non-www)
-    if ($current_host !== $target_host) {
-        $protocol = is_ssl() ? 'https://' : 'http://';
+    $current_host = $_SERVER['HTTP_HOST'];
+    $current_scheme = is_ssl() ? 'https' : 'http';
+
+    // Check if current request matches target strictly (Scheme + Host)
+    if ($current_host !== $target_host || $current_scheme !== $target_scheme) {
         $request_uri = $_SERVER['REQUEST_URI'];
 
-        // Validate that we are strictly redirecting www -> non-www or vice versa
-        // to prevent redirect loops in misconfigured environments
-        $is_www_current = (strpos($current_host, 'www.') === 0);
-        $is_www_target = (strpos($target_host, 'www.') === 0);
-
-        if ($is_www_current !== $is_www_target) {
-            wp_redirect($protocol . $target_host . $request_uri, 301);
-            exit;
-        }
+        // Redirect to the canonical version
+        wp_redirect($target_scheme . '://' . $target_host . $request_uri, 301);
+        exit;
     }
 }
 add_action('template_redirect', 'tk_enforce_canonical_domain', 1);
